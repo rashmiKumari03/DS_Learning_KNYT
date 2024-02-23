@@ -27,6 +27,10 @@
         git remote add origin <repository_url>
         git push -u origin master
         ``
+   9. After installing requirements.txt also install ipykernel (to use jupyter notebook).
+       ```bash
+       pip install ipykernel
+       ```
 
 
 
