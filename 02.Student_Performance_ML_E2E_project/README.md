@@ -31,6 +31,7 @@
        ```bash
        pip install ipykernel
        ```
+                     (if while using jupternotebook importing pandas days --> pyarrow to install then install it also in terminal --> pip install Pyarrow)
 
 
 
