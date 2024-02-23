@@ -1,37 +1,33 @@
-# Welcome to End to End Data Science Project (Student Performance) 🚀
+# Welcome to End to End Data Science Project Setup Guide (Student Performance) 🚀
+
 
 ## 1. Git and Github Repository Setup
-    a. **Commiting the code using Git in Github.**
-        - Make README.md, requirements.txt
-        - Initialize the Git Repo in this Folder.
-            ```
-            git init  # Write this in the terminal
-            ```
-        - Go to Add file there and make two things: `.gitignore`, `LICENSE`
-        - Come Back to Local and there make the Virtual environment and never push this venv to GitHub...add this name to `.gitignore` so that it will be ignored while pushing things to GitHub.
-        
-        b. **Creating the Virtual environment and activating this.**
-            - Creating an environment for this project...in cmd or bash (use `source` to activate venv here)
-            ```
-            conda create -p venv python==3.9 -y
-            conda activate venv/  # or conda activate ./venv  # These both work
-            ```
-        
-        c. **Adding Things to README.md and writing the required packages in `requirements.txt`.**
-            - Installing the required packages using 
-            ```
-            pip install -r requirements.txt
-            ```
-
-        d. **Push these things to GitHub Repo.**
-            - Using GUI of VSCode or `git add name_of_file` or `git add .` (to add all the files at once).
-
-## 2. Project Setup
-    - Creating `requirements.txt` to install the required packages.
+### a. Committing the Code using Git in Github
+   1. Make README.md, requirements.txt
+   2. Initialize the Git Repo in this Folder. 
+        ```bash
+        git init 
+        ```
+   3. Add `.gitignore` and `LICENSE` files.
+   4. Create a Virtual Environment and activate it.
+        ```bash
+        conda create -p venv python==3.9 -y
+        conda activate venv/
+        ```
+   5. Add virtual environment (`venv/`) to `.gitignore`.
+   6. Update README.md with project details.
+   7. Write required packages in `requirements.txt` and install them.
+        ```bash
+        pip install -r requirements.txt
+        ```
+   8. Push changes to Github Repo.
+        ```bash
+        git add .
+        git commit -m "Initial commit"
+        git remote add origin <repository_url>
+        git push -u origin master
+        ``
 
 
 
-
-
-
-🛠️ Let's build an amazing data science project together! 📊🔬
+This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
