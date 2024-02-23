@@ -1,8 +1,8 @@
 # Welcome to End to End Data Science Project Setup Guide (Student Performance) 🚀
 
 
-## 1. Git and Github Repository Setup
-### a. Committing the Code using Git in Github
+### A. Git and Github Repository Setup
+
    1. Make README.md, requirements.txt
    2. Initialize the Git Repo in this Folder. 
         ```bash
@@ -33,6 +33,26 @@
        ```
      (if while using ipynb --> importing pandas says --> To install Pyarrow 
       --> then install it also in terminal using --> pip install Pyarrow)
+
+----------------------------------------------------------------------------------
+### B. Project Setup
+   
+   1. Creating `template.py` to make different directories just in one shot.
+   2. Creating `setup.py` and add `-e .` into requirements.txt
+      ```
+      This setup.py file is very important , because this will make the Folder/application as package...and we can even push it to PyPi and anyone can use it as package.Here we can add various informations about the package also who created it,on which date and so many things.
+      ```
+   
+
+       
+
+
+
+
+
+
+
+
 
 
 
