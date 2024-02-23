@@ -31,7 +31,8 @@
        ```bash
        pip install ipykernel
        ```
-     (if while using jupternotebook importing pandas days --> pyarrow to install then install it also in terminal --> pip install Pyarrow)
+     (if while using ipynb --> importing pandas says --> To install Pyarrow 
+      --> then install it also in terminal using --> pip install Pyarrow)
 
 
 
