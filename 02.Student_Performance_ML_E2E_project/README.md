@@ -37,13 +37,17 @@
 ----------------------------------------------------------------------------------
 ### B. Project Setup
    
-   1. Creating `template.py` to make different directories just in one shot.
-   2. Creating `setup.py` and add `-e .` into requirements.txt
+   1. Creating `setup.py` and add `-e .` into requirements.txt
       ```
       This setup.py file is very important , because this will make the Folder/application as package...and we can even push it to PyPi and anyone can use it as package.Here we can add various informations about the package also who created it,on which date and so many things.
       ```
-   
+      Now , Once we have -e . in requirements.txt --> do pip install -r requirements.txt --> this will create the dir as package.
 
+      Best way --> To comment down -e . for now and make the dir a package at the end of the end to end project...
+   
+   
+   2. Creating `template.py` to make different directories just in one shot.
+   
        
 
 
