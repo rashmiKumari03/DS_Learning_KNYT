@@ -44,6 +44,9 @@
 
       Best way --> To comment down -e . for now and make the dir a package at the end of the end to end project...
        
+
+   11. Creating logger.py and exception.py and calling these to app.py and run app.py as oue application and gets the logs.
+       
 -----------------------------------------------------------------------------------------------------------------------------
 ### B. Project Setup
 
