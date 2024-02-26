@@ -8,6 +8,8 @@
 # By introducing -e . in requirements.txt and install it...we can directly install setup.py too.
 # Since in requirements.txt the -e . is not the package name so we need to ignore it and for that we will introduce some code here.
 
+
+
 from setuptools import  find_packages,setup
 from typing import List
 
@@ -36,9 +38,9 @@ def get_requirements(file_path:str)->List[str]:
 
 
 setup(
-    name="StudentPerformance_MLP",
+    name="student_Performance_MLProject",
     version='0.0.1',
-    author="Rashmi K",
+    author="Rashmi",
     author_email='rashmik@gmail.com',
     packages=find_packages(),
     install_requires=get_requirements('requirements.txt')

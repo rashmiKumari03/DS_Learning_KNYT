@@ -4,7 +4,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-project_name = 'student_performace_MLProject'
+project_name = 'student_performance_MLProject'
 
 
 list_of_files=[
@@ -25,8 +25,7 @@ list_of_files=[
     f"src/{project_name}/logger.py",
     "app.py",
     "requirements.txt",
-    "setup.py",
-    "artifacts"
+    "setup.py"
 
 ]
 
