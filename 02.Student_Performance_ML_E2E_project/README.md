@@ -68,9 +68,10 @@
     (Because if new dataset comes then we need to understand that where we need to retrain and all)
 
   
-    -> step1: dvc init --no-scm --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
+    -> step1: dvc init --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
     (We are not suppose to commit this .dvc in github)
     (And in this .dvc --> entire tracking of data will be there.)
+    (Before doing dvc init make sure we have done git init otherwise error would be there...)
      
     -> step2: pip install dvc (in terminal)
     ->
