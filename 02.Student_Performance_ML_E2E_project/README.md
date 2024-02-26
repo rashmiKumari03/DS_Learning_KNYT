@@ -81,7 +81,7 @@
 
     -> step3: Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git.....
 
-    ( SO delete the folder artifacts direclty and push the chnage to git now...without artifacts )
+    ( SO delete the folder artifacts direclty and push the change to git now...without artifacts )
     ![alt text](img_extra/03.Untrack_artifacts_folder_from_git.png)
 
     Since it got untracked from git...
