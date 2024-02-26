@@ -51,7 +51,8 @@
 -----------------------------------------------------------------------------------------------------------------------------
 ### B. Project Setup
 
-1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_dat
+1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_data
+
 ![alt text](Reference_img/01.DataIngestion_and_traintestsplit.png)
 
 2. We will track the data using dvc just like we track code using git
@@ -75,12 +76,14 @@ AIM : IS TO TRACK THE artifacts folder's data....
      
 -> step2: bash '''dvc add artifacts/raw.csv'''
 (We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
+
 ![alt text](Reference_img/02.Error_as_git_was_tracking_it_and_dvc_trying_to_track_ConflictRaised.png)
 
 
 -> step3: Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git.....
 
 ( SO delete the folder artifacts direclty and push the change to git now...without artifacts )
+
 ![alt text](Reference_img/03.Untrack_artifacts_folder_from_git.png)
 
 Since it got untracked from git...
