@@ -95,8 +95,16 @@ git rm -r --cached "artifacts\raw.csv"
 git commit -m "Stop tracking artifacts\raw.csv"
 
 
+git rm -r --cached "artifacts\train.csv"
+git rm -r --cached "artifacts\test.csv"
+
 then 
 dvc add artifacts\raw.csv
+dvc add artifacts\train.csv
+dvc add artifacts\test.csv
+
+do it for all raw,train and test...
+
 
 then
 git add .gitignore         # Ensure .gitignore is updated if needed
