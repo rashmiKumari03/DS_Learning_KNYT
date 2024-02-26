@@ -55,8 +55,28 @@
    ![alt text](img_extra/01.DataIngestion_and_traintestsplit.png)
 
 
+    2. We will track the data using dvc just like we track code using git
+
+    dvc: data version control
+    What is DVC? Data Version Control is a free, open-source tool for data management, ML pipeline automation, and experiment management. This helps data science and machine learning teams manage large datasets, make projects reproducible, and collaborate better.
 
 
-   2. Data transformation code:
+    Why we are not supposed to use git to track the data?
+    While Git is excellent for versioning code and text-based files, DVC extends version control capabilities to data, making it the preferred choice for managing data in machine learning projects.
+    
+    AIM : IS TO TRACK THE artifacts folder's data....
+    (Because if new dataset comes then we need to understand that where we need to retrain and all)
+
+  
+    -> step1: dvc init --no-scm --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
+    (We are not suppose to commit this .dvc in github)
+    (And in this .dvc --> entire tracking of data will be there.)
+     
+    -> step2: pip install dvc (in terminal)
+    ->
+
+
+
+   3. Data transformation code:
 
 This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
