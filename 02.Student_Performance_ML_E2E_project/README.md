@@ -109,10 +109,16 @@ do it for all raw,train and test...
 then
 git add .gitignore         # Ensure .gitignore is updated if needed
     
- git commit -m "Add raw.csv to DVC"
+Then add to github commit...
+
+Now if we add one or more records in raw.csv or any of them...then it will be a new set of data and version is new...so that will be tracked using hash key we got when we do again dvc add artifacts/raw.csv then new hash will be there with new set of data present in .dvc --> cache.
+
+if we do git log (in terminal) we get the number of versions we had wrt to same file name..different diff chnages...now data is getting tracked properly using dvc
+
+![alt text](Reference_img/04.versions_of_data.png)
 
 
-Then no issue will be there...and a new file would be added in artifacts.
+
 
 3. Data transformation code:
 
