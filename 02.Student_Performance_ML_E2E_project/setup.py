@@ -8,8 +8,6 @@
 # By introducing -e . in requirements.txt and install it...we can directly install setup.py too.
 # Since in requirements.txt the -e . is not the package name so we need to ignore it and for that we will introduce some code here.
 
-
-
 from setuptools import  find_packages,setup
 from typing import List
 

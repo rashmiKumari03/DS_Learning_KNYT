@@ -75,6 +75,5 @@ class DataIngestion:
         
             
         except Exception as e:
-            error_message = f"Data ingestion failed: {e}"
-            logging.error(error_message)
-            raise CustomException(error_message)
+            logging.info("Custom Exception Executed")
+            raise CustomException(e,sys)

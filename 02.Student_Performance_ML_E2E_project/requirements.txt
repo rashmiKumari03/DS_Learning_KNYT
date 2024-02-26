@@ -6,7 +6,6 @@ scikit-learn>=0.24.0
 flask
 mysql-connector-python
 pymysql
-
 python-dotenv  # This helps in reading the envirnoment variable.... .env
 
 # -e .
