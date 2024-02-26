@@ -77,7 +77,7 @@
     (We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
 
     ERROR LOOKS LIKE:
-    ![alt text](img_extra/02.Error_as_git_was_tracking_it_and_dvc_trying_to_track_ConflictRaised.png)
+  ![alt text](img_extra/02.Error_as_git_was_tracking_it_and_dvc_trying_to_track_ConflictRaised.png)
 
 
 
