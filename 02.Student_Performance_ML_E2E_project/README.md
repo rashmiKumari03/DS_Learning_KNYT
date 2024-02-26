@@ -51,56 +51,56 @@
 -----------------------------------------------------------------------------------------------------------------------------
 ### B. Project Setup
 
-   1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_dat
+1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_dat
 
 
-    2. We will track the data using dvc just like we track code using git
+2. We will track the data using dvc just like we track code using git
 
-    dvc: data version control
-    What is DVC? Data Version Control is a free, open-source tool for data management,
-     ML pipeline automation, and experiment management. This helps data science and 
-     machine learning teams manage large datasets, make projects reproducible, and collaborate better.
+dvc: data version control
+What is DVC? Data Version Control is a free, open-source tool for data management,
+ML pipeline automation, and experiment management. This helps data science and 
+machine learning teams manage large datasets, make projects reproducible, and collaborate better.
 
 
-    Why we are not supposed to use git to track the data?
-    While Git is excellent for versioning code and text-based files, DVC extends version control capabilities to data, making it the preferred choice for managing data in machine learning projects.
+Why we are not supposed to use git to track the data?
+While Git is excellent for versioning code and text-based files, DVC extends version control capabilities to data, making it the preferred choice for managing data in machine learning projects.
     
-    AIM : IS TO TRACK THE artifacts folder's data....
-    (Because if new dataset comes then we need to understand that where we need to retrain and all)
+AIM : IS TO TRACK THE artifacts folder's data....
+(Because if new dataset comes then we need to understand that where we need to retrain and all)
 
   
-    -> step1: dvc init --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
-    (We are not suppose to commit this .dvc in github)
-    (And in this .dvc --> entire tracking of data will be there.)
+-> step1: dvc init --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
+(We are not suppose to commit this .dvc in github)
+(And in this .dvc --> entire tracking of data will be there.)
      
-    -> step2: bash '''dvc add artifacts/raw.csv'''
-    (We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
+-> step2: bash '''dvc add artifacts/raw.csv'''
+(We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
 
-    -> step3: Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git.....
+-> step3: Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git.....
 
-    ( SO delete the folder artifacts direclty and push the change to git now...without artifacts )
+( SO delete the folder artifacts direclty and push the change to git now...without artifacts )
 
 
-    Since it got untracked from git...
-    now if we do...
-    """python app.py""" --> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
+Since it got untracked from git...
+now if we do...
+"""python app.py""" --> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
     
-    Now do this in terminal...
-    git rm -r --cached "artifacts\raw.csv"
-    git commit -m "Stop tracking artifacts\raw.csv"
+Now do this in terminal...
+git rm -r --cached "artifacts\raw.csv"
+git commit -m "Stop tracking artifacts\raw.csv"
 
 
-    then 
-    dvc add artifacts\raw.csv
+then 
+dvc add artifacts\raw.csv
 
-    then
-    git add .gitignore         # Ensure .gitignore is updated if needed
+then
+git add .gitignore         # Ensure .gitignore is updated if needed
     
-    git commit -m "Add raw.csv to DVC"
+ git commit -m "Add raw.csv to DVC"
 
 
-    Then no issue will be there...and a new file would be added in artifacts.
+Then no issue will be there...and a new file would be added in artifacts.
 
-   3. Data transformation code:
+3. Data transformation code:
 
 This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
