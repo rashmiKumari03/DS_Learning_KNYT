@@ -160,4 +160,5 @@ cython_debug/
 #.idea/
 
 # FOlder  
-Pics_of_steps
+/Pics_of_steps
+/Reference_img
