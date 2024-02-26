@@ -56,7 +56,9 @@
     2. We will track the data using dvc just like we track code using git
 
     dvc: data version control
-    What is DVC? Data Version Control is a free, open-source tool for data management, ML pipeline automation, and experiment management. This helps data science and machine learning teams manage large datasets, make projects reproducible, and collaborate better.
+    What is DVC? Data Version Control is a free, open-source tool for data management,
+     ML pipeline automation, and experiment management. This helps data science and 
+     machine learning teams manage large datasets, make projects reproducible, and collaborate better.
 
 
     Why we are not supposed to use git to track the data?
