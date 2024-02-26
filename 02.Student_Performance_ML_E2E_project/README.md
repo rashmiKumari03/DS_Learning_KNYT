@@ -50,14 +50,13 @@
 -----------------------------------------------------------------------------------------------------------------------------
 ### B. Project Setup
 
+   1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_data
+
+   ![alt text](img_extra/01.DataIngestion_and_traintestsplit.png)
 
 
 
 
-
-
-
-
-
+   2. Data transformation code:
 
 This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
