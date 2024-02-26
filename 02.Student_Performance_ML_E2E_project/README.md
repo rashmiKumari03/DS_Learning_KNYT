@@ -88,7 +88,19 @@
     now if we do...
     """python app.py""" --> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
     
-    dvc add artifacts/raw.csv
+    Now do this in terminal...
+    git rm -r --cached "artifacts\raw.csv"
+    git commit -m "Stop tracking artifacts\raw.csv"
+
+
+    then 
+    dvc add artifacts\raw.csv
+
+    then
+    git add .gitignore         # Ensure .gitignore is updated if needed
+    
+    git commit -m "Add raw.csv to DVC"
+
 
     Then no issue will be there...and a new file would be added in artifacts.
 
