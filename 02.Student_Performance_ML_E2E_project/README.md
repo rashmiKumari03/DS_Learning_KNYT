@@ -38,7 +38,9 @@
    
    10. Creating `setup.py` and add `-e .` into requirements.txt
       ```
-      This setup.py file is very important , because this will make the Folder/application as package...and we can even push it to PyPi and anyone can use it as package.Here we can add various informations about the package also who created it,on which date and so many things.
+      This setup.py file is very important , because this will make the Folder/application as package...
+and we can even push it to PyPi and anyone can use it as package.Here we can add various informations about
+ the package also who created it,on which date and so many things.
       ```
       Now , Once we have -e . in requirements.txt --> do pip install -r requirements.txt --> this will create the dir as package.
 
@@ -50,7 +52,10 @@
 -----------------------------------------------------------------------------------------------------------------------------
 ### B. Project Setup
 
-   1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_dat
+   1. Data Ingestion code: Here we use utiles file --> utiles.py (where we read data from mysql database) Then we come to components-->
+      data_ingestion file--> train_test_split the data and store it into artifcats file..also use logging and CustomException to handle
+    the error. Some new packages were installed in requirements.txt --> pymysql and python-dotenv (for reading the
+    sql data from database with proper config information). Output : artifacts folder--> 1.raw_data 2.train_data 3.test_dat
 
 
     2. We will track the data using dvc just like we track code using git
@@ -62,7 +67,8 @@
 
 
     Why we are not supposed to use git to track the data?
-    While Git is excellent for versioning code and text-based files, DVC extends version control capabilities to data, making it the preferred choice for managing data in machine learning projects.
+    While Git is excellent for versioning code and text-based files, DVC extends version control capabilities to data, making it the preferred 
+    choice for managing data in machine learning projects.
     
     AIM : IS TO TRACK THE artifacts folder's data....
     (Because if new dataset comes then we need to understand that where we need to retrain and all)
