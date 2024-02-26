@@ -73,8 +73,13 @@
     (And in this .dvc --> entire tracking of data will be there.)
     (Before doing dvc init make sure we have done git init otherwise error would be there...)
      
-    -> step2: pip install dvc (in terminal)
-    ->
+    -> step2: bash '''dvc add artifacts/raw.csv'''
+    (We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
+
+    ERROR LOOKS LIKE:
+    ![alt text](img_extra/02.Error_as_git_was_tracking_it_and_dvc_trying_to_track_ConflictRaised.png)
+
+
 
 
 
