@@ -71,7 +71,6 @@
     -> step1: dvc init --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
     (We are not suppose to commit this .dvc in github)
     (And in this .dvc --> entire tracking of data will be there.)
-    (Before doing dvc init make sure we have done git init otherwise error would be there...)
      
     -> step2: bash '''dvc add artifacts/raw.csv'''
     (We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
@@ -84,6 +83,14 @@
 
     ( SO delete the folder artifacts direclty and push the chnage to git now...without artifacts )
     ![alt text](img_extra/03.Untrack_artifacts_folder_from_git.png)
+
+    Since it got untracked from git...
+    now if we do...
+    """python app.py""" --> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
+    
+    dvc add artifacts/raw.csv
+
+    Then no issue will be there...and a new file would be added in artifacts...
 
 
 
