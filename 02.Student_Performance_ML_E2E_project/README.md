@@ -74,7 +74,7 @@ AIM : IS TO TRACK THE artifacts folder's data....
 (We are not suppose to commit this .dvc in github)
 (And in this .dvc --> entire tracking of data will be there.)
      
--> step2: bash '''dvc add artifacts/raw.csv'''
+-> step2: bash```dvc add artifacts/raw.csv```
 (We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
 
 ![alt text](Reference_img/02.Error_as_git_was_tracking_it_and_dvc_trying_to_track_ConflictRaised.png)
@@ -88,32 +88,29 @@ AIM : IS TO TRACK THE artifacts folder's data....
 
 Since it got untracked from git...
 now if we do...
-"""python app.py""" --> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
+ bash```python app.py```--> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
     
 Now do this in terminal...
-git rm -r --cached "artifacts\raw.csv"
+```git rm -r --cached "artifacts\raw.csv"```
 
-git commit -m "Stop tracking artifacts\raw.csv"
+```git rm -r --cached "artifacts\train.csv"```
 
-
-git rm -r --cached "artifacts\train.csv"
-
-git rm -r --cached "artifacts\test.csv"
+```git rm -r --cached "artifacts\test.csv"```
 
 then 
-dvc add artifacts\raw.csv
 
-dvc add artifacts\train.csv
+```dvc add artifacts\raw.csv```
 
-dvc add artifacts\test.csv
+```dvc add artifacts\train.csv```
+
+```dvc add artifacts\test.csv```
 
 do it for all raw,train and test...
 
+```git commit -m "Stop tracking artifacts\raw.csv"```
 
-then
-git add .gitignore         # Ensure .gitignore is updated if needed
-    
-Then add to github commit...
+
+then commit all to github...
 
 Now if we add one or more records in raw.csv or any of them...then it will be a new set of data and version is new...so that will be tracked using hash key we got when we do again dvc add artifacts/raw.csv then new hash will be there with new set of data present in .dvc --> cache.
 
