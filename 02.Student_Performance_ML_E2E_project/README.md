@@ -90,12 +90,7 @@
     
     dvc add artifacts/raw.csv
 
-    Then no issue will be there...and a new file would be added in artifacts...
-
-
-
-
-
+    Then no issue will be there...and a new file would be added in artifacts.
 
    3. Data transformation code:
 
