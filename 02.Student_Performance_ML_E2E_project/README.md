@@ -166,23 +166,6 @@ But doing this will track the code but if we see in raw.csv --> no change we cou
 * dvc checkout
 * dvc checkout master   (come back to recent)
 
-
-
-
-Now to checkout the versions of data if changed we can use :
-* git checkout
-* git log    # The yellow  log we got copy paste and use it with checkout
-* git checkout 5ef41d5d9a538510dcfff8caeaa576445ee422f9     # Doing this will goes back to that commit with (change in code)
-* git checkout 450aac4648802624b3594248293be95763fecf7e     # This was recent HEAD ---> (to get back to master...recent do )
-
-In this way we can track the code ..ie. version of code we can track using the git
-Similarly....
-In case of tracking the data version we can use dvc.
-
-
-* dvc checkout
-* dvc checkout master   (come back to recent)
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. Data transformation code:
