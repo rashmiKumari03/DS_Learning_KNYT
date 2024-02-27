@@ -152,7 +152,7 @@ Now if we commit it...then...suppose initally there were 1001 records in commit 
 not the total will be 1001+3=1004 records so its md file would be diff and lets say we commit it too..
 
 Now suppose we want to checkout what was the data and code at the first time we commited...
-=> To track the code --> we use git checkout <followed by the git log commit address for that..where we want to move>
+* => To track the code --> we use git checkout <followed by the git log commit address for that..where we want to move>
 
 ![alt text](Reference_img/06.git_log.png)
 
@@ -161,7 +161,7 @@ Now suppose we want to checkout what was the data and code at the first time we 
 * git checkout 450aac4648802624b3594248293be95763fecf7e   (recent or latest one to come back to now)
 
 But doing this will track the code but if we see in raw.csv --> no change we could observe...for that we need dvc.
-=> To track the data --> we use dvc checkout 
+* => To track the data --> we use dvc checkout 
 
 * dvc checkout
 * dvc checkout master   (come back to recent)
