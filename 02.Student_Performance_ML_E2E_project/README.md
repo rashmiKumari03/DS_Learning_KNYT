@@ -55,6 +55,8 @@
 
 ![alt text](Reference_img/01.DataIngestion_and_traintestsplit.png)
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
 2. We will track the data using dvc just like we track code using git
 
 dvc: data version control
@@ -66,38 +68,64 @@ machine learning teams manage large datasets, make projects reproducible, and co
 Why we are not supposed to use git to track the data?
 While Git is excellent for versioning code and text-based files, DVC extends version control capabilities to data, making it the preferred choice for managing data in machine learning projects.
     
+ ----------------------------------------------------------------------------------------------------------------------   
+# We need to use git and dvc side by side (together)
+
 AIM : IS TO TRACK THE artifacts folder's data....
 (Because if new dataset comes then we need to understand that where we need to retrain and all)
 
-  
--> step1: dvc init --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
+pip install dvc (in terminal)
+
+
+
+-> step0 : git init
+-> step1: dvc init  --> this will make two things... (a) .dvc (folder)  (b) .dvcignore
 (We are not suppose to commit this .dvc in github)
 (And in this .dvc --> entire tracking of data will be there.)
-     
--> step2: bash```dvc add artifacts/raw.csv```
-(We will  get error like ,because we were already tracking the artifacts using git and now we were trying to track it using dvc)
+(Make sure that before dvc init we have done git init ..if it was throughing error of being repo untracked)
+(.dvc--> we should have config, .gitignore (vimp) and tmp)
+
+
+summary: 
+* git init
+* dvc init
+* git add .
+* git status
+* git commit -m "dvc init"
+* dvc add artifacts/raw.csv     ---> this will through error so...
+
+ERROR:  output 'artifacts\raw.csv' is already tracked by SCM (e.g. Git).                                                                                                  
+    You can remove it from Git, then add to DVC.
+        To stop tracking from Git:
+            git rm -r --cached 'artifacts\raw.csv'
+            git commit -m "stop tracking artifacts\raw.csv"
 
 ![alt text](Reference_img/02.Error_as_git_was_tracking_it_and_dvc_trying_to_track_ConflictRaised.png)
 
 
--> step3: Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git.....
+Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git
 
-( SO delete the folder artifacts direclty and push the change to git now...without artifacts )
-
-![alt text](Reference_img/03.Untrack_artifacts_folder_from_git.png)
-
-Since it got untracked from git...
-now if we do...
- bash```python app.py```--> this will again make the artifacts folder but this time it is not being tracked by git...and now if we do 
-    
 Now do this in terminal...
-```git rm -r --cached "artifacts\raw.csv"```
+``` git rm -r --cached "artifacts\raw.csv" ```
 
-```git rm -r --cached "artifacts\train.csv"```
+``` git rm -r --cached "artifacts\train.csv" ```
 
-```git rm -r --cached "artifacts\test.csv"```
+``` git rm -r --cached "artifacts\test.csv" ```
 
-then 
+do it for all raw,train and test...
+
+``` git commit -m "Stop tracking artifacts\raw.csv" ```
+
+
+``` git commit -m "Stop tracking artifacts\train.csv" ```
+
+
+``` git commit -m "Stop tracking artifacts\test.csv" ```
+
+( Delete the artifacts and commit the chnage...so that it will be untracked and not visible in github)
+Then again do  python app.py to get the untracked artifact file..
+
+Now track the data using dvc ..for that we need to use these ...
 
 ```dvc add artifacts\raw.csv```
 
@@ -105,10 +133,9 @@ then
 
 ```dvc add artifacts\test.csv```
 
-do it for all raw,train and test...
+![alt text](Reference_img/05.Untracked_original_data_and_data_tracked_by_dvc_way.png)
 
-```git commit -m "Stop tracking artifacts\raw.csv"```
-
+    
 
 then commit all to github...
 
@@ -118,8 +145,45 @@ if we do ```git log``` (in terminal) we get the number of versions we had wrt to
 
 ![alt text](Reference_img/04.versions_of_data.png)
 
+Suppose in raw.csv we have changed the data...means added few ...and commited then .dvc file cache also changes..
+ie. data version happen...as two diff versions of data will be there...so its md file will be diff .
+
+Now if we commit it...then...suppose initally there were 1001 records in commit first...then after few more rows lets say 3 rows came..
+not the total will be 1001+3=1004 records so its md file would be diff and lets say we commit it too..
+
+Now suppose we want to checkout what was the data and code at the first time we commited...
+=> To track the code --> we use git checkout <followed by the git log commit address for that..where we want to move>
+
+![alt text](Reference_img/06.git_log.png)
+
+* git log 
+* git checkout 5ef41d5d9a538510dcfff8caeaa576445ee422f9
+* git checkout 450aac4648802624b3594248293be95763fecf7e   (recent or latest one to come back to now)
+
+But doing this will track the code but if we see in raw.csv --> no change we could observe...for that we need dvc.
+=> To track the data --> we use dvc checkout 
+
+* dvc checkout
+* dvc checkout master   (come back to recent)
 
 
+
+
+Now to checkout the versions of data if changed we can use :
+* git checkout
+* git log    # The yellow  log we got copy paste and use it with checkout
+* git checkout 5ef41d5d9a538510dcfff8caeaa576445ee422f9     # Doing this will goes back to that commit with (change in code)
+* git checkout 450aac4648802624b3594248293be95763fecf7e     # This was recent HEAD ---> (to get back to master...recent do )
+
+In this way we can track the code ..ie. version of code we can track using the git
+Similarly....
+In case of tracking the data version we can use dvc.
+
+
+* dvc checkout
+* dvc checkout master   (come back to recent)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
 
 3. Data transformation code:
 
