@@ -106,6 +106,7 @@ ERROR:  output 'artifacts\raw.csv' is already tracked by SCM (e.g. Git).
 Since we want to track artifacts folder and its data using dvc , for that we need to untrack the artifacts from git
 
 Now do this in terminal...
+
 ``` git rm -r --cached "artifacts\raw.csv" ```
 
 ``` git rm -r --cached "artifacts\train.csv" ```
