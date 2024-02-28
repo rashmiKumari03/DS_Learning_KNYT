@@ -18,8 +18,6 @@ from src.student_performace_MLProject.exception import CustomException
 from src.student_performace_MLProject.logger import logging
 
 
-
-
 @dataclass    # This basically stores the information of class here path.
 class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')    # We are defining a path to save pickle file at this location
