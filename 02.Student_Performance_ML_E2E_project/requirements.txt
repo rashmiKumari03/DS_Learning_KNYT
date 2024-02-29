@@ -6,5 +6,9 @@ scikit-learn
 pymysql
 python-dotenv
 
+xgboost
+catboost
+
+
 # -e .
 # ipykernel we will install in the local...using"  pip install ipykernel "

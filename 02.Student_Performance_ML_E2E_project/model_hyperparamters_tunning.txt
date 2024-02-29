@@ -1,0 +1,295 @@
+I. Linear Regression
+
+- Use: Predict continuous target variables based on linear relationships with predictors.
+- Introduction: Simple and interpretable foundation for regression models.
+- Differentiation: May not capture non-linear relationships effectively.
+- Aim: Uncover linear relationships between features and target variables.
+- Algorithm: Minimizes squared difference between predicted and actual values.
+- Hyperparameters: fit_intercept, normalize, copy_X, n_jobs.
+
+Hyperparameters:
+    - fit_intercept: 
+        - Controls whether to calculate the intercept term. Useful when the data doesn't naturally intersect the origin.
+    - normalize: 
+        - Scales features to have unit variance. Helpful when features have different scales.
+    - copy_X: 
+        - Determines whether to copy input data.Useful to avoid modifying the original dataset.
+    - n_jobs: 
+        - Specifies the number of CPU cores for computation. Useful for parallel computation, speeding up the process.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+II. Ridge Regression
+
+- Use: Regularized linear regression to prevent overfitting.
+- Introduction: Addresses limitations of Linear Regression in high-dimensional or noisy data.
+- Differentiation: Introduces penalty term to control model complexity.
+- Aim: Balance prediction accuracy with model complexity.
+- Algorithm: Similar to Linear Regression with additional penalty term.
+- Hyperparameters: alpha (regularization parameter).
+
+Hyperparameters:
+    - alpha: 
+        - Controls the strength of regularization.Larger values penalize large coefficients more, preventing overfitting.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+III. Lasso Regression
+
+- Use: Feature selection and regularization in linear regression.
+- Introduction: Uses L1 regularization for feature selection.
+- Differentiation: Sets some coefficients to zero, leading to sparser models.
+- Aim: Combine prediction accuracy with feature selection.
+- Algorithm: Similar to Ridge Regression with L1 regularization.
+- Hyperparameters: alpha (regularization parameter).
+ 
+ Hyperparameters:
+
+    - alpha (regularization parameter) : 
+        - Think of alpha as a dial that controls how much you want to penalize the coefficients.
+        - Higher alpha means stronger penalty, potentially leading to more coefficients being set to zero, thus selecting fewer features.
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+IV. ElasticNet Regression
+
+- Use: Combines L1 and L2 regularization for feature selection.
+- Introduction: Hybrid of Ridge and Lasso Regressions.
+- Differentiation: Balances L1 and L2 regularizations.
+- Aim: Achieve both feature selection and regularization.
+- Algorithm: Combines L1 and L2 penalties.
+- Hyperparameters: alpha (combined regularization parameter), l1_ratio (balance parameter).
+
+Hyperparameters:
+
+    - alpha (regularization parameter):
+        - Think of alpha as a dial that controls how much you want to penalize the coefficients.
+        - Higher alpha means stronger penalty, potentially leading to more coefficients being set to zero, thus selecting fewer features.
+
+    - L1 Ratio (balance parameter): 
+        - Determines the weight given to L1 (Lasso) regularization versus L2 (Ridge) regularization.
+        - A value of 1 means pure Lasso, while 0 means pure Ridge. Anything in between is a mix of both.
+ 
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+V. Support Vector Regressor (SVR)
+
+- Use: Handles non-linear relationships efficiently.
+- Introduction: Maps data into higher-dimensional space using kernel function.
+- Differentiation: Enables non-linear modeling.
+- Aim: Capture complex, non-linear relationships.
+- Algorithm: Maps data into higher-dimensional space using kernel function.
+- Hyperparameters: kernel, C (regularization parameter), epsilon, gamma, shrinking, max_iter.
+
+Hyperparameters:
+    - Kernel:
+        - Chooses the shape of the function that best fits the data.
+        - Different kernels capture different types of relationships in the data.
+    - C (regularization parameter):
+        - Adjusts the trade-off between smooth decision boundary and classifying training points correctly.
+        - Smaller values allow more flexibility, potentially leading to overfitting, while larger values enforce a stricter fit.
+    - Epsilon:
+        - Sets the margin of tolerance where no penalty is given to errors.
+        - Determines how much error is acceptable in the training set.
+    - Gamma:
+        - Defines how far the influence of a single training example reaches.
+        - Low gamma means far, high gamma means close.
+    - Shrinking:
+        - Helps speed up the optimization process by reducing the number of support vectors.
+        - Improves efficiency without significantly affecting performance.
+    - Max_iter:
+        - Sets the maximum number of iterations for optimization.
+        - Limits the time spent optimizing the model.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+VI. Decision Tree Regressor
+
+- Use: Interpretable, non-parametric modeling of complex relationships.
+- Introduction: Offers interpretability and handles non-linear relationships.
+- Differentiation: Makes predictions using decision tree structure.
+- Aim: Understand decision-making process and identify important features.
+- Algorithm: Recursively partitions feature space based on decision rules.
+- Hyperparameters: criterion, splitter, max_depth, min_samples_split, min_samples_leaf, max_features.
+
+Hyperparameters:
+    - Criterion:
+        - Determines the measure used for splitting nodes.
+        - "MSE" minimizes mean squared error, while "MAE" minimizes mean absolute error.
+    - Splitter:
+        - Chooses the strategy for splitting at each node.
+        - "Best" looks for the best split, while "Random" randomly selects features to split.
+    - Max_depth:
+        - Sets the maximum depth of the tree.
+        - Controls the complexity of the model and helps prevent overfitting.
+    - Min_samples_split:
+        - Specifies the minimum number of samples required to split a node.
+        - Prevents creating nodes with too few samples.
+    - Min_samples_leaf:
+        - Sets the minimum number of samples required to be at a leaf node.
+        - Prevents creating nodes with very few samples.
+    - Max_features:
+        - Limits the number of features to consider when looking for the best split.
+        - Promotes diversity in the trees and reduces overfitting.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+VII. Random Forest Regressor
+
+- Use: Ensemble method for improved accuracy and robustness.
+- Introduction: Addresses overfitting by aggregating predictions from multiple trees.
+- Differentiation: Builds ensemble of decision trees using randomness.
+- Aim: Improve prediction accuracy through ensemble learning.
+- Algorithm: Builds ensemble of decision trees on random subsets of data and features.
+- Hyperparameters: Same as Decision Tree Regressor, plus n_estimators.
+
+Hyperparameters:
+
+
+- N_estimators:
+  - Determines the number of decision trees in the forest.
+  - More trees generally lead to better performance but increase computation time.
+
+- Criterion:
+  - Decides the measure used for splitting nodes in individual trees.
+  - "MSE" minimizes mean squared error, while "MAE" minimizes mean absolute error.
+
+- Splitter:
+  - Chooses the strategy for splitting at each node.
+  - "Best" looks for the best split, while "Random" randomly selects features to split.
+
+- Max_depth:
+  - Sets the maximum depth of each decision tree in the forest.
+  - Controls the complexity of the individual trees and helps prevent overfitting.
+
+- Min_samples_split:
+  - Specifies the minimum number of samples required to split a node.
+  - Helps prevent creating nodes with too few samples.
+
+- Min_samples_leaf:
+  - Sets the minimum number of samples required to be at a leaf node.
+  - Prevents creating nodes with very few samples.
+
+- Max_features:
+  - Limits the number of features to consider when looking for the best split.
+  - Promotes diversity in the trees and reduces overfitting.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+VIII. AdaBoost Regressor
+
+- Use: Sequential ensemble learning method to improve performance.
+- Introduction: Sequentially improves weak learners based on previous errors.
+- Differentiation: Focuses on training subsequent trees on misclassified samples.
+- Aim: Increase prediction accuracy through boosting.
+- Algorithm: Sequentially trains decision trees, re-weighting data points.
+- Hyperparameters: n_estimators, learning_rate, loss.
+
+Hyperparameters:
+
+- n_estimators:
+  - Determines the number of weak learners (typically decision trees) to train sequentially.
+  - More estimators may lead to a more complex model but could increase computational cost.
+
+- learning_rate:
+  - Scales the contribution of each weak learner in the final combination.
+  - Lower values require more estimators to achieve the same performance but can improve robustness against overfitting.
+
+- loss:
+  - Specifies the loss function to use when updating the weights after each iteration.
+  - Options include linear, square, and exponential loss, each affecting how errors are penalized.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+IX. Gradient Boosting Regressor
+
+- Use: Ensemble learning method using gradient boosting for complex problems.
+- Introduction: Builds ensemble of decision trees sequentially to correct errors.
+- Differentiation: Employs decision trees to correct prediction errors iteratively.
+- Aim: Achieve high accuracy by combining decision trees.
+- Algorithm: Sequentially builds decision trees to fit residuals.
+- Hyperparameters: n_estimators, learning_rate, loss, max_depth, min_samples_split. combine this with  Sure, let's combine the explanations of the parameters with the summary of each regression model:
+
+Hyperparameters:
+
+
+- n_estimators:
+  - Sets the number of weak learners (usually decision trees) to be sequentially trained.
+  - More estimators can increase model complexity but may also lead to overfitting.
+
+- learning_rate:
+  - Controls the contribution of each weak learner to the overall model.
+  - Lower values require more estimators but can improve generalization.
+
+- loss:
+  - Defines the loss function to be optimized during training.
+  - Options include least squares regression, least absolute deviation, and Huber loss, among others, affecting how errors are penalized.
+
+- max_depth:
+  - Specifies the maximum depth of each decision tree weak learner.
+  - Controls the complexity of the individual trees and helps prevent overfitting.
+
+- min_samples_split:
+  - Sets the minimum number of samples required to split an internal node.
+  - Prevents creating nodes with too few samples, promoting generalization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
