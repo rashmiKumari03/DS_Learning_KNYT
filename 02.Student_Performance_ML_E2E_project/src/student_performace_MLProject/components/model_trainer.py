@@ -4,6 +4,7 @@
 import os
 import sys
 from dataclasses import dataclass
+from tabulate import tabulate
 
 from src.student_performace_MLProject.exception import CustomException
 from src.student_performace_MLProject.logger import logging
@@ -24,6 +25,9 @@ from sklearn.metrics import  r2_score,accuracy_score
 
 # In ModelTrainerConfig we will define the path where we have to save the model.pickle file...after model training.
 # model.pkl --> contain the best model .
+
+# Now we will use that evalutate metric code from utlies...and also to save the model we need save_object from utiles to save the pickle file.
+from src.student_performace_MLProject.utiles.utiles import save_object,evaluate_model
 
 @dataclass
 class ModelTrainerConfig:
@@ -160,31 +164,62 @@ class ModelTrainer:
                     "l2_leaf_reg": [1, 3, 5],
                     "border_count": [32, 64, 128]
                 }
-}
+                }
 
-
-
+            # In the 'utils' file, we define a function 'evaluate_model' for assessing the performance of a model.
+            # This function takes as inputs: X_train, X_test, y_train, y_test, a list of models, and corresponding parameters params.
+            # We utilize GridSearchCV to perform hyperparameter tuning using cross-validation.
+            # The function trains each model using GridSearchCV and fits it to the training data.
+            # Subsequently, predictions are made on both the training set (for validation) and the test set.
         
 
+            # Now we will use that evalutate metric code from utlies...and also to save the model we need save_object from utiles to save the pickle file.
+            # Since the report returned from evaluate_model was report so here we mention is as model_report : dict
         
+            model_report : dict = evaluate_model(X_train,y_train,X_test,y_test,models,params)
+
+            # Creating table data
+            table_data = []
+            for model_name, scores in model_report.items():
+                table_data.append([model_name, scores['train_score'], scores['test_score']])
+
+            # Adding header for the table
+            table_data.insert(0, ["Model", "Training Score", "Test Score"])
+
+            # Logging the table
+            logging.info("Model Performance:")
+            logging.info(tabulate(table_data, headers="firstrow"))
 
 
-
-
-
-
+            # To get the best model of the dictionary we have this code:
+            best_model_score = max(sorted(model_report.values()))
             
+            # Based on this best model score we will save the respective name of the model.
+            best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
+            best_model = models[best_model_name]
+
+            #Lets also set thresold that if the model performance is less than 60% then Dont save it..
+
+            if best_model_score < 0.6 :
+                raise CustomException("No Best Model Found")
             
+            logging.info(f"Best Found model on both trainig and testing dataset")
 
-            
+            # Saving the model as pickle file using save_object function from utiles.
+
+            save_object(
+                file_path= self.model_trainer_config.trained_model_file_path,
+                object= best_model
+            )
 
 
+            # Now we can make prediction...using X_test data.
+            predicted = best_model.predict(X_test)
+            r2_sqaure= r2_score(y_test,predicted)
 
-            
+            return r2_sqaure
 
-            
-
-
+  
 
         except Exception as e:
             logging.info("Error has Occured!!!")

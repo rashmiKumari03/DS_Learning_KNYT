@@ -11,6 +11,10 @@ from src.student_performace_MLProject.exception import CustomException
 import numpy as np
 
 
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import r2_score
+
+
 # load_dotenv() Parse a .env file and then load all the variables found as environment variables.
 load_dotenv()
 
@@ -60,4 +64,53 @@ def save_object(file_path,object):
 
     except Exception as e:
         logging.error(f"Error occurred while saving object to {file_path}: {e}")
+        raise CustomException(e,sys)
+
+
+# In the 'utils' file, we define a function 'evaluate_model' for assessing the performance of a model.
+# This function takes as inputs: X_train, X_test, y_train, y_test, a list of models, and corresponding parameters params.
+# We utilize GridSearchCV to perform hyperparameter tuning using cross-validation.
+# The function trains each model using GridSearchCV and fits it to the training data.
+# Subsequently, predictions are made on both the training set (for validation) and the test set.
+    
+def evaluate_model(X_train,y_train,X_test,y_test,models,param):
+    try:
+        report = {}
+
+        logging.info(f"Number of Models :{len(list(models))}")
+       
+
+        for i in range(len(models)):
+            model_name = list(models.keys())[i]
+            model = list(models.values())[i]
+            parameters = param[model]
+
+            logging.info(f"Model Name: {model_name}, Model Object: {model}")
+
+            # Do GridSearchCV on model with parameters
+            gs = GridSearchCV(model, parameters)
+            gs.fit(X_train, y_train)
+
+            # Set the best parameters found by GridSearchCV
+            model.set_params(**gs.best_params_)
+
+            # Train the model
+            model.fit(X_train, y_train)
+
+            # Make predictions on training and test sets
+            y_train_pred = model.predict(X_train)  # For Validation
+            y_test_pred = model.predict(X_test)
+
+            # Calculate R^2 score for training and test sets
+            train_model_score = r2_score(y_train, y_train_pred)
+            test_model_score = r2_score(y_test, y_test_pred)
+
+            # Store model performance scores in the report dictionary
+            report[model_name] = {'train_score': train_model_score, 'test_score': test_model_score}
+
+        return report
+
+
+    except Exception as e:
+        logging.info("Error has Occured!!!")
         raise CustomException(e,sys)
