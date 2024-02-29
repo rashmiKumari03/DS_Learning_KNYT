@@ -41,7 +41,7 @@ class DataTransformation:
 
         try:
              
-            # Reading the data (training data)
+            # Reading the data (training data) ( just to get the columns)
             data= pd.read_csv(r"C:\Users\Admin\Desktop\DS_Learning_KNYT\02.Student_Performance_ML_E2E_project\artifacts\train.csv")
 
             print(data.head())
@@ -77,12 +77,23 @@ class DataTransformation:
             logging.info(f"Categorical Columns:{ cat_features}")
 
 
+            input_num_features = [column for column in num_features if column != 'math_score']
+            logging.info(f"Input Numerical Features are :{input_num_features}")  # We gonna use these and transform these only for training input.
+
+            input_cat_features = cat_features
+            logging.info(f"Input Categorical Features are :{input_cat_features}") 
+
+            # We are doing this because we have first defined the column transformation and later we segregate independent and dependent variables.  
+            # Because "math_score" : is the target variable so we need to drop it of our input numerical data otherwise , it will through error.
+        
+
+
             # Since We have num_pipeline to handle numerical features and cat_pipeline to handle Categorical features.
             # But at the end of the dat : we need to combine these two..for that we use ColumnTransformer.
 
             preprocessor = ColumnTransformer([
-                ("Numerical_Pipeline_to_handle_numerical_values",num_pipeline,num_features),
-                ("Categorical_Pipeline_to_handle_numerical_values",cat_pipeline,cat_features)
+                ("Numerical_Pipeline_to_handle_numerical_values",num_pipeline,input_num_features),
+                ("Categorical_Pipeline_to_handle_numerical_values",cat_pipeline,input_cat_features)
             ])
 
 
@@ -127,20 +138,20 @@ class DataTransformation:
 
             
             logging.info(f"Shape of input_features_train_df:{input_feature_train_df.shape}")
-            logging.info(f"Shape of target_feature_train_df:{target_feature_train_df}")
+            logging.info(f"Shape of target_feature_train_df:{target_feature_train_df.shape}")
 
-            logging.info(f"Input Feature of Training Dataset looks like:",input_feature_train_df.head())
-            logging.info(f"Target Feature of Training Dataset looks like:",target_feature_train_df.head())
+            logging.info(f"Input Feature of Training Dataset looks like:\n {input_feature_train_df.head()}")
+            logging.info(f"Target Feature of Training Dataset looks like:\n {target_feature_train_df.head()}")
 
              # Diving the test dataset to independent and dependent features.
             input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df = test_df[target_column_name]
 
             logging.info(f"Shape of input_features_test_df:{input_feature_test_df.shape}")
-            logging.info(f"Shape of target_feature_test_df:{target_feature_test_df}")
+            logging.info(f"Shape of target_feature_test_df:{target_feature_test_df.shape}")
 
-            logging.info(f"Input Feature of Test Dataset looks like:",input_feature_test_df.head())
-            logging.info(f"Target Feature of Test Dataset looks like:",target_feature_test_df.head())
+            logging.info(f"Input Feature of Test Dataset looks like:\n {input_feature_test_df.head()}")
+            logging.info(f"Target Feature of Test Dataset looks like:\n {target_feature_test_df.head()}")
 
             logging.info("Applying Preprocessing on training and testing dataframe")
 
