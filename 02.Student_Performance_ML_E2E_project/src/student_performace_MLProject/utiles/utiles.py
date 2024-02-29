@@ -83,7 +83,7 @@ def evaluate_model(X_train,y_train,X_test,y_test,models,param):
         for i in range(len(models)):
             model_name = list(models.keys())[i]
             model = list(models.values())[i]
-            parameters = param[model]
+            parameters = param[model_name]
 
             logging.info(f"Model Name: {model_name}, Model Object: {model}")
 
@@ -91,7 +91,7 @@ def evaluate_model(X_train,y_train,X_test,y_test,models,param):
             gs = GridSearchCV(model, parameters)
             gs.fit(X_train, y_train)
 
-            # Set the best parameters found by GridSearchCV
+            # Set the best parameters found by GridSearchCVcls
             model.set_params(**gs.best_params_)
 
             # Train the model
@@ -112,5 +112,5 @@ def evaluate_model(X_train,y_train,X_test,y_test,models,param):
 
 
     except Exception as e:
-        logging.info("Error has Occured!!!")
+        logging.info("Some Error Occured !!!")
         raise CustomException(e,sys)

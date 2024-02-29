@@ -10,8 +10,6 @@ I. Linear Regression
 Hyperparameters:
     - fit_intercept: 
         - Controls whether to calculate the intercept term. Useful when the data doesn't naturally intersect the origin.
-    - normalize: 
-        - Scales features to have unit variance. Helpful when features have different scales.
     - copy_X: 
         - Determines whether to copy input data.Useful to avoid modifying the original dataset.
     - n_jobs: 

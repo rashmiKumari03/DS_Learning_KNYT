@@ -5,9 +5,9 @@ seaborn
 scikit-learn
 pymysql
 python-dotenv
-
 xgboost
 catboost
+tabulate
 
 
 # -e .

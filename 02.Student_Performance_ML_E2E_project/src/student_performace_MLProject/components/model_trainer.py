@@ -16,7 +16,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor,AdaBoostRegressor,GradientBoostingRegressor
 
 # need to install xgboost and catboost in  requirements.txt first.
-from xgboost import XGBoostRegressor
+from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
 
 # Metrics for Measuring the Regression Problem.
@@ -52,6 +52,7 @@ class ModelTrainer:
 
             logging.info(f"Shape of the Training Input Feature is: {X_train.shape}\nTraining Target Feature is:{y_train.shape}")
             logging.info(f"Shape of the Testing Input Feature is: {X_test.shape}\nTesting Target Feature is:{y_test.shape}")
+            logging.info("Since we have used One Hot Encoding for Categorical data thats why the dim of columns has increased")
 
             
             # Making List of Models in Dictionary Form.
@@ -66,7 +67,7 @@ class ModelTrainer:
                 "RandomForest Regressor": RandomForestRegressor(),
                 "AdaBoost Regressor": AdaBoostRegressor(),
                 "GradientBoost Regressor": GradientBoostingRegressor(),
-                "XGBoost Regressor": XGBoostRegressor(),
+                "XGBoost Regressor": XGBRegressor(),
                 "CatBoost Regressor": CatBoostRegressor()
                 }
             
@@ -75,94 +76,90 @@ class ModelTrainer:
 
             params = {
                 "Linear Regression": {
-                    "fit_intercept": [True, False],
-                    "normalize": [True, False],
-                    "copy_X": [True, False],
-                    "n_jobs": [None, -1, 1, 2]
+                    "fit_intercept": [True, False]
+                   # "copy_X": [True, False],
+                   # "n_jobs": [None, -1, 1, 2]
                     },
                     
                 "Rigid Regression": {
-                    "alpha": [0.1, 0.5, 1.0, 5.0],
-                    "fit_intercept": [True, False],
-                    "normalize": [True, False],
-                    "copy_X": [True, False],
-                    "max_iter": [None, 1000, 5000]
+                    "alpha": [0.1, 0.5, 1.0, 5.0]
+                    #"fit_intercept": [True, False],
+                    # "copy_X": [True, False],
+                    # "max_iter": [None, 1000, 5000]
                     },
 
                 "Lasso Regression": {
                     "alpha": [0.1, 0.5, 1.0, 5.0],
-                    "fit_intercept": [True, False],
-                    "normalize": [True, False],
-                    "precompute": [True, False],
-                    "copy_X": [True, False],
-                    "max_iter": [1000, 5000, 10000]
+                    #"fit_intercept": [True, False],
+                    #"precompute": [True, False],
+                    #"copy_X": [True, False],
+                    #"max_iter": [1000, 5000, 10000]
                 },
 
                 "ElasticNet Regression": {
-                    "alpha": [0.1, 0.5, 1.0, 5.0],
-                    "l1_ratio": [0.2, 0.5, 0.7],
-                    "fit_intercept": [True, False],
-                    "normalize": [True, False],
-                    "precompute": [True, False],
-                    "copy_X": [True, False],
-                    "max_iter": [1000, 5000, 10000]
+                    "alpha": [0.1, 0.5, 1.0, 5.0]
+                    #"l1_ratio": [0.2, 0.5, 0.7],
+                    #"fit_intercept": [True, False],
+                    #"precompute": [True, False],
+                    #"copy_X": [True, False],
+                    #"max_iter": [1000, 5000, 10000]
                 },
 
                 "Support Vector Regressor": {
-                    "kernel": ['linear', 'poly', 'rbf', 'sigmoid'],
-                    "C": [0.1, 1.0, 10.0],
-                    "epsilon": [0.1, 0.2, 0.5],
-                    "gamma": ['scale', 'auto'],
-                    "shrinking": [True, False],
-                    "max_iter": [-1, 1000, 5000]
+                    "kernel": ['linear', 'poly', 'rbf', 'sigmoid']
+                    #"C": [0.1, 1.0, 10.0],
+                    #"epsilon": [0.1, 0.2, 0.5],
+                    #"gamma": ['scale', 'auto'],
+                    #"shrinking": [True, False],
+                    #"max_iter": [-1, 1000, 5000]
                 },
 
                 "Decision Tree Regressor": {
                     "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                    "splitter": ['best', 'random'],
-                    "max_depth": [None, 10, 20, 50],
-                    "min_samples_split": [2, 5, 10],
-                    "min_samples_leaf": [1, 2, 4],
-                    "max_features": ['auto', 'sqrt', 'log2', None]
+                    #"splitter": ['best', 'random'],
+                    #"max_depth": [None, 10, 20, 50],
+                    #"min_samples_split": [2, 5, 10],
+                    #"min_samples_leaf": [1, 2, 4],
+                    #"max_features": ['auto', 'sqrt', 'log2', None]
                 },
 
                 "RandomForest Regressor": {
                     "n_estimators": [100, 200, 300],
-                    "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                    "max_depth": [None, 10, 20, 50],
-                    "min_samples_split": [2, 5, 10],
-                    "min_samples_leaf": [1, 2, 4],
-                    "max_features": ['auto', 'sqrt', 'log2',None]
+                    #"criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
+                    #"max_depth": [None, 10, 20, 50],
+                    #"min_samples_split": [2, 5, 10],
+                    #"min_samples_leaf": [1, 2, 4],
+                    #"max_features": ['auto', 'sqrt', 'log2',None]
                 },
 
                 "AdaBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
+                    #"n_estimators": [50, 100, 200],
+                    #"learning_rate": [0.01, 0.1, 1.0],
                     "loss": ['linear', 'square', 'exponential']
                 },
 
                 "GradientBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
+                    #"n_estimators": [50, 100, 200],
                     "learning_rate": [0.01, 0.1, 1.0],
-                    "loss": ['ls', 'lad', 'huber', 'quantile'],
-                    "max_depth": [3, 5, 7],
-                    "min_samples_split": [2, 5, 10]
+                    #"loss": ['ls', 'lad', 'huber', 'quantile'],
+                    #"max_depth": [3, 5, 7],
+                    #"min_samples_split": [2, 5, 10]
                 },
 
                 "XGBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
+                    #"n_estimators": [50, 100, 200],
                     "learning_rate": [0.01, 0.1, 0.3],
-                    "max_depth": [3, 5, 7],
-                    "subsample": [0.5, 0.8, 1.0],
-                    "colsample_bytree": [0.5, 0.8, 1.0]
+                    #"max_depth": [3, 5, 7],
+                    #"subsample": [0.5, 0.8, 1.0],
+                    #"colsample_bytree": [0.5, 0.8, 1.0]
                 },
 
                 "CatBoost Regressor": {
-                    "iterations": [100, 200, 300],
+                    #"iterations": [100, 200, 300],
                     "learning_rate": [0.01, 0.1, 0.3],
-                    "depth": [4, 6, 8],
-                    "l2_leaf_reg": [1, 3, 5],
-                    "border_count": [32, 64, 128]
+                    #"depth": [4, 6, 8],
+                    #"l2_leaf_reg": [1, 3, 5],
+                    #"border_count": [32, 64, 128]
                 }
                 }
 
@@ -183,13 +180,12 @@ class ModelTrainer:
             for model_name, scores in model_report.items():
                 table_data.append([model_name, scores['train_score'], scores['test_score']])
 
+            logging.info("\nModel Performance:")
+
             # Adding header for the table
-            table_data.insert(0, ["Model", "Training Score", "Test Score"])
-
-            # Logging the table
-            logging.info("Model Performance:")
-            logging.info(tabulate(table_data, headers="firstrow"))
-
+            col = ["Model_Name", "Training_Performance", "Testing_Performance"]
+            logging.info(tabulate(table_data, headers=col, tablefmt="grid"))
+    
 
             # To get the best model of the dictionary we have this code:
             best_model_score = max(sorted(model_report.values()))

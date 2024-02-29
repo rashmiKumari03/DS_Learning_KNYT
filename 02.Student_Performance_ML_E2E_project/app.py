@@ -6,6 +6,8 @@ from src.student_performace_MLProject.exception import CustomException
 from src.student_performace_MLProject.components.data_ingestion import DataIngestion
 from src.student_performace_MLProject.components.data_transformation import DataTransformation
 
+from src.student_performace_MLProject.components.model_trainer import ModelTrainer
+
 # To check whether things are working file...lets make it.
 if __name__ == "__main__":
     logging.info("The Exectuion has started")
@@ -19,7 +21,16 @@ if __name__ == "__main__":
 
 
         data_transformation = DataTransformation()
-        data_transformation.initiate_data_transformation(train_data_path,test_data_path)
+        train_array , test_array , _ = data_transformation.initiate_data_transformation(train_data_path,test_data_path)  # It returns 3 things train_array ,test_array and preprocessor.pkl where feature transformer was saved.
+        # After this we must get a preprocessor.pkl file in artifacts folder.
+
+
+
+
+        model_trainer = ModelTrainer()
+        model_trainer.initiate_model_trainer(train_array,test_array)
+        print("R2 Score :", model_trainer.initiate_model_trainer(train_array,test_array))
+        # After this we must get a model.pkl file in artifacts folder.
 
 
 

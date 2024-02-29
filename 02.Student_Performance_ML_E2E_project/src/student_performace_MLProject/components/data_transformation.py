@@ -150,8 +150,7 @@ class DataTransformation:
             logging.info(f"Shape of input_features_test_df:{input_feature_test_df.shape}")
             logging.info(f"Shape of target_feature_test_df:{target_feature_test_df.shape}")
 
-            logging.info(f"Input Feature of Test Dataset looks like:\n {input_feature_test_df.head()}")
-            logging.info(f"Target Feature of Test Dataset looks like:\n {target_feature_test_df.head()}")
+            
 
             logging.info("Applying Preprocessing on training and testing dataframe")
 
@@ -171,7 +170,10 @@ class DataTransformation:
             # Once i have train_data input & target features : fit and transformed and similarly i have test_data input & target features : transform
             # Now we will combine input and target features for train set and test set using concatenation : using c_ this makes the concate the columns..
             train_array = np.c_[input_feature_train_array , np.array(target_feature_train_df)]
+            logging.info(f"train_array :{train_array}")
+
             test_array = np.c_[input_feature_test_array , np.array(target_feature_test_df)]
+            logging.info(f"test_array :{test_array}")
 
             logging.info(f"Saved Preprocessing Object means Feature Transformation Done !!!")
 
