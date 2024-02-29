@@ -1,5 +1,6 @@
 import os
 import sys
+import pickle   # Importing things to save the preprocessing_object into pickle file from data_transformation.py file 
 import pymysql
 import pandas as pd
 from dotenv import load_dotenv
@@ -7,9 +8,6 @@ import warnings
 warnings.filterwarnings('ignore')
 from src.student_performace_MLProject.logger import logging
 from src.student_performace_MLProject.exception import CustomException
-
-# Importing things to save the preprocessing_object into pickle file from data_transformation.py file 
-import pickle
 import numpy as np
 
 
@@ -58,7 +56,8 @@ def save_object(file_path,object):
 
         with open(file_path,"wb") as file_obj :
             pickle.dump(object,file_obj)
+            logging.info(f"Object saved successfully to: {file_path}")
 
     except Exception as e:
-        logging.info("Custom Exception raised")
+        logging.error(f"Error occurred while saving object to {file_path}: {e}")
         raise CustomException(e,sys)

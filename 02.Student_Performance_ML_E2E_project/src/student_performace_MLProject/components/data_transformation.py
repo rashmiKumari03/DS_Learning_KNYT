@@ -47,10 +47,12 @@ class DataTransformation:
             print(data.head())
             print(data.shape)
             
+            logging.info(f"We read the data:{data.head(3)}")
 
             # Defining Numerical and Categorical Feature.
-            num_features = data.select_dtypes(exclude='object').columns
-            cat_features = data.select_dtypes(include='object').columns
+
+            num_features = data.select_dtypes(include=np.number).columns.tolist()   # Because exclude was not working properly...better to use this appraoch
+            cat_features = data.select_dtypes(include='object').columns.tolist()
 
 
             # Suppose in case we have missing values in our data or may be new data coming
@@ -67,12 +69,11 @@ class DataTransformation:
 
             cat_pipeline = Pipeline(steps=[
                 ("imputer",SimpleImputer(strategy='most_frequent')),
-                ("Ohe",OneHotEncoder()),           # Here values comes in 0 to 1 but just additonal we normalize we use StandardScaler (we can skip it too)
-                ("scaler",StandardScaler(with_mean=False))
+                ("Ohe",OneHotEncoder())
 
             ])
 
-            logging.info(f"Numerical Columns:{ num_features}")
+            logging.info(f"Numerical Columns:{num_features}")
             logging.info(f"Categorical Columns:{ cat_features}")
 
 
@@ -121,13 +122,25 @@ class DataTransformation:
 
 
             # Diving the train dataset to independent and dependent features.
-            input_features_train_df = train_df.drop(columns=[target_column_name],axis=1)
+            input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df = train_df[target_column_name]
 
+            
+            logging.info(f"Shape of input_features_train_df:{input_feature_train_df.shape}")
+            logging.info(f"Shape of target_feature_train_df:{target_feature_train_df}")
+
+            logging.info(f"Input Feature of Training Dataset looks like:",input_feature_train_df.head())
+            logging.info(f"Target Feature of Training Dataset looks like:",target_feature_train_df.head())
 
              # Diving the test dataset to independent and dependent features.
-            input_features_test_df = test_df.drop(columns=[target_column_name],axis=1)
+            input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df = test_df[target_column_name]
+
+            logging.info(f"Shape of input_features_test_df:{input_feature_test_df.shape}")
+            logging.info(f"Shape of target_feature_test_df:{target_feature_test_df}")
+
+            logging.info(f"Input Feature of Test Dataset looks like:",input_feature_test_df.head())
+            logging.info(f"Target Feature of Test Dataset looks like:",target_feature_test_df.head())
 
             logging.info("Applying Preprocessing on training and testing dataframe")
 
@@ -135,8 +148,13 @@ class DataTransformation:
             # Most important step : Applying the preprocessor on the training data and testing data.
             # training_data : fit_transform but do testing_data : transform  ( this is to avoid the data leakage)
 
-            input_feature_train_array = preprocessing_object.fit_transform(input_features_train_df)
-            input_feature_test_array = preprocessing_object.transform(input_features_test_df)
+            input_feature_train_array = preprocessing_object.fit_transform(input_feature_train_df)
+            input_feature_test_array = preprocessing_object.transform(input_feature_test_df)
+
+            logging.info(f"Transformation  on Training Dataset:{input_feature_train_array}")
+            logging.info(f"Transformation  on Test Dataset:{input_feature_test_array}")
+
+            logging.info("Here we have out input features of transformed training and test data in array form.")
 
 
             # Once i have train_data input & target features : fit and transformed and similarly i have test_data input & target features : transform

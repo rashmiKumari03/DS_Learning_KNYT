@@ -48,6 +48,10 @@ class DataIngestion:
             # We need to use utiles file read_sql_data() function to read the data...
             df = read_sql_data()    # This was raw data..
 
+            # If we dont want everytime to read from database once we got the artifacts folder with data in them.
+            # We can use them too using...read_csv on direct path
+            # df = pd.read_csv(os.path.join('notebook/data','raw.csv'))
+
             # Make config in .env folder (create it) and code will be there in utiles file.
             logging.info("Reading Completed from the MySQL Database")
 
