@@ -17,6 +17,10 @@ from sklearn.pipeline import Pipeline
 from src.student_performace_MLProject.exception import CustomException
 from src.student_performace_MLProject.logger import logging
 
+# To save the object in pickle file --> utiles --> calling function --> save_object()
+from src.student_performace_MLProject.utiles.utiles import save_object
+
+
 
 @dataclass    # This basically stores the information of class here path.
 class DataTransformationConfig:
@@ -38,20 +42,15 @@ class DataTransformation:
         try:
              
             # Reading the data (training data)
-            data = pd.read_csv('.\artifacts\train.csv')
+            data= pd.read_csv(r"C:\Users\Admin\Desktop\DS_Learning_KNYT\02.Student_Performance_ML_E2E_project\artifacts\train.csv")
+
             print(data.head())
             print(data.shape)
             
-            # Independent and Dependent Variables.
-            X = data.iloc[]
-           
-            
-
-
 
             # Defining Numerical and Categorical Feature.
-            num_features = X.select_dtypes(exclude='object').columns
-            cat_features = X.select_dtypes(incude='object').columns
+            num_features = data.select_dtypes(exclude='object').columns
+            cat_features = data.select_dtypes(include='object').columns
 
 
             # Suppose in case we have missing values in our data or may be new data coming
@@ -90,33 +89,86 @@ class DataTransformation:
                                     # Therefore :get_data_transformer_object() --> returns Feature Transformation--> preprocessor
 
 
-         
+        except Exception as e:
+            logging.info("Custom Exception Executed")
+            raise CustomException(e,sys)
+        
+
+        
+    # Since in the above defination we have created function for transformation of features..now we will call it in this next fucntion.
+    def initiate_data_transformation(self,train_data_path,test_data_path):
+        try:
+
+            # Reading the train.csv and test.csv from the respective path of train_data_path and test_data_path which we got fromt the last .py file data_ingestion.py file
+            # data_ingestion.py --> retuned --> train_data_path , test_data_path
+            # So here we are using those path and read the data present there.
+             
+            train_df = pd.read_csv(train_data_path)
+            test_df = pd.read_csv(test_data_path)
+            logging.info("Reading the train and test file")
 
 
+            # Now in same class i want to call the above method here using self.
+            preprocessing_object = self.get_data_transformer_object()
 
 
+            # Diving the dataset to independent and dependent features.
+            # We have to do this on both train dataset and test dataset
+            # input_features_train_df  is X ,  target_feature_train_df is y .
 
             
+            target_column_name = "math_score"  
+
+
+            # Diving the train dataset to independent and dependent features.
+            input_features_train_df = train_df.drop(columns=[target_column_name],axis=1)
+            target_feature_train_df = train_df[target_column_name]
+
+
+             # Diving the test dataset to independent and dependent features.
+            input_features_test_df = test_df.drop(columns=[target_column_name],axis=1)
+            target_feature_test_df = test_df[target_column_name]
+
+            logging.info("Applying Preprocessing on training and testing dataframe")
+
+
+            # Most important step : Applying the preprocessor on the training data and testing data.
+            # training_data : fit_transform but do testing_data : transform  ( this is to avoid the data leakage)
+
+            input_feature_train_array = preprocessing_object.fit_transform(input_features_train_df)
+            input_feature_test_array = preprocessing_object.transform(input_features_test_df)
+
+
+            # Once i have train_data input & target features : fit and transformed and similarly i have test_data input & target features : transform
+            # Now we will combine input and target features for train set and test set using concatenation : using c_ this makes the concate the columns..
+            train_array = np.c_[input_feature_train_array , np.array(target_feature_train_df)]
+            test_array = np.c_[input_feature_test_array , np.array(target_feature_test_df)]
+
+            logging.info(f"Saved Preprocessing Object means Feature Transformation Done !!!")
+
+            
+            # Now at the end of the day this preprocessing happen using preprocessing_object , so we need to save it to pickle file.
+            # So to do this common function : saving to pickle we use utiles file...Lets got to utiles file.--> make function  named : save_object()
+            # Here in this file lets import that utiles file and call that function...
+
+            # We need these two things to pass to the save_object : to save the object at filepath location
+            filepath = self.data_transformation_config.preprocessor_obj_file_path
+            object = preprocessing_object
+
+            save_object(filepath,object)
 
 
 
+            # We need to return train_array , test_array , file_path_of_preprocessor from config.
+            # So that we can use these things in out next .py file in Pipline ie. We can use model_trainer.
 
-
-
-
-
-
-
-
-
-
-
-
+            return(train_array,
+                   test_array,
+                   self.data_transformation_config.preprocessor_obj_file_path)
 
 
 
         except Exception as e:
-            logging.info("Custom Exception Executed")
+            logging.info("Custom Exception Raised")
             raise CustomException(e,sys)
-
 
