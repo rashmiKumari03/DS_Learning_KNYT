@@ -244,25 +244,19 @@ class ModelTrainer:
 
             logging.info("Start the MLflow Experiment Tracking part......")
             # MLflow and Dags Code..
-
-            # To get the names of the models from params variable.
-            model_names = list(params.keys())
-            
-            actual_model = ""  # We will update it so initialize it
                 
             # Saving the best/actual model , saving parameters of actual model
-            for model in model_names:
-                if best_model_name == model :
-                    actual_model = actual_model + model
+            actual_model = models[best_model_name]
 
             # saving parameter of of best performing model
-            param_actual = params[actual_model]
+            param_actual = params[best_model_name]
 
 
 
             # Here we have to mention the urls we got from DagsHub..
             mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+            
 
 
 
@@ -273,14 +267,14 @@ class ModelTrainer:
 
                 predicted_quantities = actual_model.predict(X_test)
 
-                (rmse , mae , r2) = self.eval_metrics(y_test,predicted_quantities)
+                rmse , mae , r2 = self.eval_metrics(y_test,predicted_quantities)
 
                 logging.info("logging the best parameters of the model")
 
                 mlflow.log_params(param_actual)
                 mlflow.log_metric("rmse",rmse)
-                mlflow.log_metrics("mae",mae)
-                mlflow.log_metrics("r2",r2)
+                mlflow.log_metric("mae",mae)
+                mlflow.log_metric("r2",r2)
 
             # Model registry does not work with file store
             # tracking_url_type_store  : This url is that url which was there in Dags hub..
@@ -292,7 +286,7 @@ class ModelTrainer:
                 # There are other ways to use the Model Resgistry
                 # This tracking_url_type_store we have mentioned above where links we got from DagsHub are there.
 
-                mlflow.sklearn.log_model(best_model_name,"model", resgistered_model_name=actual_model)
+                mlflow.sklearn.log_model(best_model_name,"model",  registered_model_name = best_model_name)
             else:
                 mlflow.sklearn.log_model(best_model_name,"model")
 
