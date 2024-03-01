@@ -174,6 +174,7 @@ class ModelTrainer:
             # Since the report returned from evaluate_model was report so here we mention is as model_report : dict
         
             model_report : dict = evaluate_model(X_train,y_train,X_test,y_test,models,params)
+            logging.info(f"Model Report Looks Like : {model_report}")
 
             # Creating table data
             table_data = []
@@ -185,35 +186,57 @@ class ModelTrainer:
             # Adding header for the table
             col = ["Model_Name", "Training_Performance", "Testing_Performance"]
             logging.info(tabulate(table_data, headers=col, tablefmt="grid"))
-    
-
-            # To get the best model of the dictionary we have this code:
-            best_model_score = max(sorted(model_report.values()))
-            
-            # Based on this best model score we will save the respective name of the model.
-            best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
-            best_model = models[best_model_name]
-
-            #Lets also set thresold that if the model performance is less than 60% then Dont save it..
-
-            if best_model_score < 0.6 :
-                raise CustomException("No Best Model Found")
-            
-            logging.info(f"Best Found model on both trainig and testing dataset")
-
-            # Saving the model as pickle file using save_object function from utiles.
-
-            save_object(
-                file_path= self.model_trainer_config.trained_model_file_path,
-                object= best_model
-            )
 
 
-            # Now we can make prediction...using X_test data.
-            predicted = best_model.predict(X_test)
-            r2_sqaure= r2_score(y_test,predicted)
 
-            return r2_sqaure
+            # Getting the Best Model with Best Performance:
+
+            # Initialize a list to store model names and scores
+            model_scores = []
+
+            # Iterate over each model
+            for model_name, scores in model_report.items():
+                train_score = scores['train_score']
+                test_score = scores['test_score']
+                model_scores.append((model_name, train_score, test_score))
+
+            logging.info(f"Model_score :{model_scores}")
+
+            # Sort models based on test score
+            # sorted(model_scores, key=lambda x: x[2], reverse=True) : This means we are sorting the model_scores list which have tuples in it...
+            # But Based on what ??? So Based on the test_score denoted by x[2] and reverse = True means in Descending order of Test_score..max to min..
+           
+            sorted_models = sorted(model_scores, key=lambda x: x[2], reverse=True)
+            logging.info(f"Sorted model based on performance {sorted_models}")
+
+            # Print sorted models
+            for i, (model_name, train_score, test_score) in enumerate(sorted_models, 1):
+                logging.info(f"Model {i}: {model_name}, Train Score: {train_score}, Test Score: {test_score}")
+
+            # Best model
+            best_model_name, best_train_score, best_test_score = sorted_models[0]    # Sicne the sorting was max to min based on test score. in descending..so 1st will be obviously the best model
+            logging.info(f"\nBest Model: {best_model_name}, Train Score: {best_train_score}, Test Score: {best_test_score}")
+        
+
+
+            # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
+            if best_test_score < 0.6:
+                logging.info("Best model's performance is below the threshold. Not saving the model.")
+            else:
+                logging.info("Best model found on both training and testing datasets.")
+                
+                # Saving the best model as a pickle file using save_object function from utiles.
+                save_object(
+                    file_path=self.model_trainer_config.trained_model_file_path,
+                    object=models[best_model_name]
+                )
+
+                # Now we can make predictions using X_test data.
+                logging.info("Predciting the X_test and get the accuracy:")
+                predicted = models[best_model_name].predict(X_test)
+                r2_square = r2_score(y_test, predicted)
+
+            return r2_square , models[best_model_name]
 
   
 
