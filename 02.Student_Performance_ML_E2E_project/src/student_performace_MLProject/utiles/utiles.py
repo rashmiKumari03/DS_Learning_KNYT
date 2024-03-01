@@ -84,8 +84,10 @@ def evaluate_model(X_train,y_train,X_test,y_test,models,param):
             model_name = list(models.keys())[i]
             model = list(models.values())[i]
             parameters = param[model_name]
+            logging.info(f"Model :{model_name} Started!!...Processing............")
 
             logging.info(f"Model Name: {model_name}, Model Object: {model}")
+            
 
             # Do GridSearchCV on model with parameters
             gs = GridSearchCV(model, parameters)
@@ -107,6 +109,7 @@ def evaluate_model(X_train,y_train,X_test,y_test,models,param):
 
             # Store model performance scores in the report dictionary
             report[model_name] = {'train_score': train_model_score, 'test_score': test_model_score}
+            logging.info(f"Model :{model_name} Training Completed")
 
         return report
 
