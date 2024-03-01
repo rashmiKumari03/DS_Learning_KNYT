@@ -4,7 +4,7 @@
 import os
 import sys
 import numpy as np
-import urlparse
+from urllib.parse import urlparse 
 
 from dataclasses import dataclass
 from tabulate import tabulate
