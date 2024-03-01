@@ -233,7 +233,7 @@ class ModelTrainer:
 
                 # Now we can make predictions using X_test data.
                 logging.info("Predciting the X_test and get the accuracy:")
-                predicted = models[best_model_name].predict(X_test)
+                predicted = models[best_model_name].predict(X_test)    # For now its X_test but it must be some new data which was not seen by the model...
                 r2_square = r2_score(y_test, predicted)
 
             return r2_square , models[best_model_name]

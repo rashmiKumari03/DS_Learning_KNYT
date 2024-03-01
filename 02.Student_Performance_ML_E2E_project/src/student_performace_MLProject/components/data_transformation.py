@@ -150,6 +150,9 @@ class DataTransformation:
             logging.info(f"Shape of input_features_test_df:{input_feature_test_df.shape}")
             logging.info(f"Shape of target_feature_test_df:{target_feature_test_df.shape}")
 
+            logging.info(f"Input Feature of Testing Dataset looks like:\n {input_feature_test_df.head()}")
+            logging.info(f"Target Feature of Testing Dataset looks like:\n {target_feature_test_df.head()}")
+
             
 
             logging.info("Applying Preprocessing on training and testing dataframe")

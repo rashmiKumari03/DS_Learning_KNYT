@@ -39,7 +39,7 @@ def read_sql_data():
 
       
         df = pd.read_sql_query('SELECT * FROM student_info', mydb)
-        print(df.head())
+        logging.info(df.head())
 
         return df
 
