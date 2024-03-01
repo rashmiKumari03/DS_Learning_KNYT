@@ -3,6 +3,9 @@
 
 import os
 import sys
+import numpy as np
+import urlparse
+
 from dataclasses import dataclass
 from tabulate import tabulate
 
@@ -20,14 +23,19 @@ from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
 
 # Metrics for Measuring the Regression Problem.
-from sklearn.metrics import  r2_score,accuracy_score
-
+from sklearn.metrics import  r2_score,accuracy_score,mean_absolute_error,mean_squared_error
 
 # In ModelTrainerConfig we will define the path where we have to save the model.pickle file...after model training.
 # model.pkl --> contain the best model .
 
 # Now we will use that evalutate metric code from utlies...and also to save the model we need save_object from utiles to save the pickle file.
 from src.student_performace_MLProject.utiles.utiles import save_object,evaluate_model
+
+# MLflow
+import mlflow
+
+
+
 
 @dataclass
 class ModelTrainerConfig:
@@ -37,6 +45,20 @@ class ModelTrainerConfig:
 class ModelTrainer:
     def __init__(self):
         self.model_trainer_config = ModelTrainerConfig()
+
+
+
+
+    # Creating evaluation metric :
+    
+    def eval_metrics(self,actual,pred):
+        rmse = np.sqrt(mean_squared_error(actual,pred))
+        mae = mean_absolute_error(actual,pred)
+        r2 = r2_score(actual,pred)
+
+        return rmse , mae , r2
+    
+
 
     
     # As input we need to pass : train_array , test_array (ie. transformed data)
@@ -216,7 +238,66 @@ class ModelTrainer:
             # Best model
             best_model_name, best_train_score, best_test_score = sorted_models[0]    # Sicne the sorting was max to min based on test score. in descending..so 1st will be obviously the best model
             logging.info(f"\nBest Model: {best_model_name}, Train Score: {best_train_score}, Test Score: {best_test_score}")
-        
+
+
+
+
+            logging.info("Start the MLflow Experiment Tracking part......")
+            # MLflow and Dags Code..
+
+            # To get the names of the models from params variable.
+            model_names = list(params.keys())
+            
+            actual_model = ""  # We will update it so initialize it
+                
+            # Saving the best/actual model , saving parameters of actual model
+            for model in model_names:
+                if best_model_name == actual_model :
+                    actual_model = actual_model + model
+
+            # saving parameter of of best performing model
+            param_actual = params[actual_model]
+
+
+
+            # Here we have to mention the urls we got from DagsHub..
+            mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
+            tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+
+
+
+            # Lets use the created function (above) for evaluation metric....eval_metrics
+            # MLflow Pipeline starts from here For Expermiment Tracking.
+            # Install mlflow in requirements.txt and then import it in this file.
+            with mlflow.start_run():
+
+                predicted_qualities = actual_model.predict(X_test)
+
+                (rmse , mae , r2) = self.eval_metrics(y_test,predicted_qualities)
+
+                logging.info("logging the best parameters of the model")
+
+                mlflow.log_params(param_actual)
+                mlflow.log_metric("rmse",rmse)
+                mlflow.log_metrics("mae",mae)
+                mlflow.log_metrics("r2",r2)
+
+            # Model registry does not work with file store
+            # tracking_url_type_store  : This url is that url which was there in Dags hub..
+                
+            if tracking_url_type_store != "file":
+
+
+                # Register the mode
+                # There are other ways to use the Model Resgistry
+                # This tracking_url_type_store we have mentioned above where links we got from DagsHub are there.
+
+                mlflow.sklearn.log_model(best_model_name,"model", resgistered_model_name=actual_model)
+            else:
+                mlflow.sklearn.log_model(best_model_name,"model")
+
+
+
 
 
             # Let's also set a threshold: if the model performance is less than 60%, then don't save it.

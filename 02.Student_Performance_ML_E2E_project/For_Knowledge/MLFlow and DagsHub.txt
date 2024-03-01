@@ -1,0 +1,46 @@
+MLFlow and Dags Hub are both tools commonly used in the field of data science and machine learning for managing, tracking, and deploying machine learning models.
+1. MLFlow:
+    - MLFlow is an open-source platform for managing the end-to-end machine learning lifecycle. It provides tools for experiment tracking, reproducibility, model packaging, and deployment.
+    - Aim: The primary aim of MLFlow is to streamline the process of developing, training, deploying, and monitoring machine learning models, making it easier for data scientists and engineers to manage the entire lifecycle of a model.
+    - Usage: MLFlow can be used within a variety of environments including Jupyter notebooks, standalone scripts, and production systems. It provides APIs and command-line tools for integrating with existing workflows.
+
+    Meaning of Each term : experiment tracking, reproducibility, model packaging, and deployment
+        - Experiment Tracking: Keeping a record of all the different experiments you run while developing machine learning models.
+        - Reproducibility: Making sure that you can recreate the same results every time you run your model or experiment, ensuring consistency.
+        - Model Packaging: Putting your trained machine learning model and all its necessary components (like code, dependencies) into a single package so it can be easily used elsewhere.
+        - Deployment: Putting your model into action, making it accessible for others to use, typically in a real-world setting.
+
+
+---------------------------------------------------------------------------------------------------------
+
+2. Dags Hub:
+    - Dags Hub is a platform for managing and sharing Apache Airflow DAGs (Directed Acyclic Graphs), which are used for defining workflows in data pipelines.
+    - Real Aim: The primary aim of Dags Hub is to facilitate collaboration and reusability of workflows by providing a centralized repository for storing and sharing DAG definitions.
+    - Usage: Data engineers and data scientists can use Dags Hub to store, discover, and share DAGs, making it easier to collaborate on building and maintaining data pipelines.
+
+
+---------------------------------------------------------------------------------------------------------
+(Not used here in this project.)
+3. Docker:
+Docker is a platform for developing, shipping, and running applications in containers. In the context of machine learning, Docker can be used to package machine learning models along with their dependencies and runtime environments, making it easier to deploy and run models consistently across different environments.
+
+
+
+
+# Firstly sign in Dags then connect it using the github...create repo --> connect to repo ---> username provided (github)--->proceed.... connected
+#Then go to green button : Remote there we see these two things..
+
+# MLflow Tracking remote:
+https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow
+
+
+# Using MLflow tracking:
+MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow \
+MLFLOW_TRACKING_USERNAME=mlprojectrash \
+MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3 \
+python script.py
+---------------------------
+
+Now come to local and code for mlflow so that   (Go to mlflow UI ) which appeared in Remote (green button) will start Tracking the Experiment.
+
+Lets go to model_trainer.py....before setting the thresold code...we will do this mlflow and dags code.

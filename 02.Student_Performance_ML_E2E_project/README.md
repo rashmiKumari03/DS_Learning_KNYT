@@ -171,4 +171,55 @@ But doing this will track the code but if we see in raw.csv --> no change we cou
 
 3. Data transformation code:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# MLFLow Experiment Tracking & Dags
+To execute this mlflow tracking....we have these things.
+
+- MLflow Tracking remote:
+https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow
+
+
+- Using MLflow tracking:
+MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow \
+MLFLOW_TRACKING_USERNAME=mlprojectrash \
+MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3 \
+python script.py
+
+
+---------------
+Now Lets go to terminal---> open bash and there write: This will let the mlflow know that it has to log to dagshub repo.
+
+* activate the venv/
+* export MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow 
+
+* export MLFLOW_TRACKING_USERNAME=mlprojectrash
+* export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
+* now run the python app.py
+
+
 This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
+
+
+
