@@ -252,7 +252,7 @@ class ModelTrainer:
                 
             # Saving the best/actual model , saving parameters of actual model
             for model in model_names:
-                if best_model_name == actual_model :
+                if best_model_name == model :
                     actual_model = actual_model + model
 
             # saving parameter of of best performing model
@@ -271,9 +271,9 @@ class ModelTrainer:
             # Install mlflow in requirements.txt and then import it in this file.
             with mlflow.start_run():
 
-                predicted_qualities = actual_model.predict(X_test)
+                predicted_quantities = actual_model.predict(X_test)
 
-                (rmse , mae , r2) = self.eval_metrics(y_test,predicted_qualities)
+                (rmse , mae , r2) = self.eval_metrics(y_test,predicted_quantities)
 
                 logging.info("logging the best parameters of the model")
 
