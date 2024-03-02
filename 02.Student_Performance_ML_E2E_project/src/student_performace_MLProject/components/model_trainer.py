@@ -9,6 +9,10 @@ from urllib.parse import urlparse
 from dataclasses import dataclass
 from tabulate import tabulate
 
+# MLflow
+import mlflow
+import mlflow.sklearn
+
 from src.student_performace_MLProject.exception import CustomException
 from src.student_performace_MLProject.logger import logging
 
@@ -23,18 +27,13 @@ from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
 
 # Metrics for Measuring the Regression Problem.
-from sklearn.metrics import  r2_score,accuracy_score,mean_absolute_error,mean_squared_error
+from sklearn.metrics import  r2_score,mean_absolute_error,mean_squared_error
 
 # In ModelTrainerConfig we will define the path where we have to save the model.pickle file...after model training.
 # model.pkl --> contain the best model .
 
 # Now we will use that evalutate metric code from utlies...and also to save the model we need save_object from utiles to save the pickle file.
 from src.student_performace_MLProject.utiles.utiles import save_object,evaluate_model
-
-# MLflow
-import mlflow
-import mlflow.sklearn
-
 
 
 
@@ -99,15 +98,15 @@ class ModelTrainer:
 
             params = {
                 "Linear Regression": {
-                    "fit_intercept": [True, False],
-                    "copy_X": [True, False],
-                    "n_jobs": [None, -1, 1, 2]
-                    },
+                 #   "fit_intercept": [True, False],
+                 #   "copy_X": [True, False],
+                 #   "n_jobs": [None, -1, 1, 2]
+                   },
                     
                 "Rigid Regression": {
                     "alpha": [0.1, 0.5, 1.0, 5.0],
-                    "fit_intercept": [True, False],
-                     "copy_X": [True, False],
+                 #   "fit_intercept": [True, False],
+                  #   "copy_X": [True, False],
                      "max_iter": [None, 1000, 5000]
                     },
 
@@ -129,59 +128,59 @@ class ModelTrainer:
                 },
 
                 "Support Vector Regressor": {
-                    "kernel": ['linear', 'poly', 'rbf', 'sigmoid'],
-                    "C": [0.1, 1.0, 10.0],
-                    "epsilon": [0.1, 0.2, 0.5],
-                    "gamma": ['scale', 'auto'],
+                 #   "kernel": ['linear', 'poly', 'rbf', 'sigmoid'],
+                  #  "C": [0.1, 1.0, 10.0],
+                 #   "epsilon": [0.1, 0.2, 0.5],
+                 #   "gamma": ['scale', 'auto'],
                     "shrinking": [True, False],
                     "max_iter": [-1, 1000, 5000]
                 },
 
                 "Decision Tree Regressor": {
-                    "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                    "splitter": ['best', 'random'],
-                    "max_depth": [None, 10, 20, 50],
-                    "min_samples_split": [2, 5, 10],
+                  # "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
+                  #  "splitter": ['best', 'random'],
+                  #  "max_depth": [None, 10, 20, 50],
+                  #  "min_samples_split": [2, 5, 10],
                     "min_samples_leaf": [1, 2, 4],
-                    "max_features": ['auto', 'sqrt', 'log2', None]
+                  #  "max_features": ['auto', 'sqrt', 'log2', None]
                 },
 
                 "RandomForest Regressor": {
-                   "n_estimators": [100, 200, 300],
-                   "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                    "max_depth": [None, 10, 20, 50],
+                   #"n_estimators": [100, 200, 300],
+                 #  "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
+                  #  "max_depth": [None, 10, 20, 50],
                     "min_samples_split": [2, 5, 10],
-                    "max_features": ['auto', 'sqrt', 'log2',None]
+                   # "max_features": ['auto', 'sqrt', 'log2',None]
                 },
 
                 "AdaBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
+                  #  "n_estimators": [50, 100, 200],
+                  #  "learning_rate": [0.01, 0.1, 1.0],
                     "loss": ['linear', 'square', 'exponential']
                  },
 
                 "GradientBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
-                    "loss": ['ls', 'lad', 'huber', 'quantile'],
-                    "max_depth": [3, 5, 7],
+                  #  "n_estimators": [50, 100, 200],
+                  #  "learning_rate": [0.01, 0.1, 1.0],
+                   # "loss": ['ls', 'lad', 'huber', 'quantile'],
+                  #  "max_depth": [3, 5, 7],
                     "min_samples_split": [2, 5, 10]
                 },
 
                 "XGBoost Regressor": {
-                   "n_estimators": [50, 100, 200],
-                   "learning_rate": [0.01, 0.1, 0.3],
-                    "max_depth": [3, 5, 7],
-                    "subsample": [0.5, 0.8, 1.0],
+                  # "n_estimators": [50, 100, 200],
+                  # "learning_rate": [0.01, 0.1, 0.3],
+                  #  "max_depth": [3, 5, 7],
+                  #  "subsample": [0.5, 0.8, 1.0],
                     "colsample_bytree": [0.5, 0.8, 1.0]
                 },
 
                 "CatBoost Regressor": {
-                   "iterations": [100, 200, 300],
-                    "learning_rate": [0.01, 0.1, 0.3],
-                    "depth": [4, 6, 8],
+                  # "iterations": [100, 200, 300],
+                  #  "learning_rate": [0.01, 0.1, 0.3],
+                   # "depth": [4, 6, 8],
                     "l2_leaf_reg": [1, 3, 5],
-                    "border_count": [32, 64, 128]
+                    #"border_count": [32, 64, 128]
                 }
                 
                 }
@@ -247,35 +246,40 @@ class ModelTrainer:
             # MLflow and Dags Code..
                 
             # Saving the best/actual model , saving parameters of actual model
-            actual_model = models[best_model_name]
-
-            # saving parameter of of best performing model
-            param_actual = params[best_model_name]
-
-           
-
-            # Here we have to mention the urls we got from DagsHub..
-            mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
-            tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+            best_model = models[best_model_name]   # We will use this in mlflow run...too
+            logging.info(f"Best_model:{best_model}")
             
 
+
+            # Initialize MLflow if necessary
+            mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
+            tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+            logging.info(f"Traking_url : {tracking_url_type_store}")
 
 
             # Lets use the created function (above) for evaluation metric....eval_metrics
             # MLflow Pipeline starts from here For Expermiment Tracking.
-            # Install mlflow in requirements.txt and then import it in this file.
+            # Install mlflow in requirements.txt and then import it in this file.s
+
+            mlflow.end_run()
+
             with mlflow.start_run():
 
-                predicted_quantities = actual_model.predict(X_test)
+                mlflow.autolog(log_models=True)
+                best_model = models[best_model_name]
+                logging.info(f"Best model: {best_model}")
 
-                rmse , mae , r2 = self.eval_metrics(y_test,predicted_quantities)
+                best_params = params[best_model_name]
+                logging.info(f"Best model parameters: {best_params}")
 
-                logging.info("logging the best parameters of the model")
+                mlflow.log_params(best_params)
 
-                mlflow.log_params(param_actual)
-                mlflow.log_metric("rmse",rmse)
-                mlflow.log_metric("mae",mae)
-                mlflow.log_metric("r2",r2)
+                predicted_quantities = best_model.predict(X_test)
+                rmse, mae, r2 = self.eval_metrics(y_test, predicted_quantities)
+
+                mlflow.log_metric("rmse", rmse)
+                mlflow.log_metric("mae", mae)
+                mlflow.log_metric("r2", r2)
 
                 # Model registry does not work with file store
                 # tracking_url_type_store  : This url is that url which was there in Dags hub..
@@ -286,14 +290,12 @@ class ModelTrainer:
                     # Register the mode
                     # There are other ways to use the Model Resgistry
                     # This tracking_url_type_store we have mentioned above where links we got from DagsHub are there.
-
-                    mlflow.sklearn.log_model(best_model_name,"model",  registered_model_name = best_model_name)
+                     mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model_name)
+          
                 else:
-                    mlflow.sklearn.log_model(best_model_name,"model")
+                    mlflow.sklearn.log_model(best_model,"model")
 
-
-
-
+     
 
             # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
             if best_test_score < 0.6:
@@ -321,7 +323,10 @@ class ModelTrainer:
             raise CustomException(e,sys)
 
 
+s
 
 
+
+        
 
 

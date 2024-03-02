@@ -219,6 +219,7 @@ Now Lets go to terminal---> open bash and there write: This will let the mlflow 
 * now run the python app.py
 
 
+
 This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
 
 

@@ -28,14 +28,10 @@ if __name__ == "__main__":
         # After this we must get a preprocessor.pkl file in artifacts folder.
 
 
-
-
         model_trainer = ModelTrainer()
         r2_score , model_name = model_trainer.initiate_model_trainer(train_array,test_array)
         logging.info(f"Best Model Name is:{model_name} and its r2_score is:{r2_score}")
         # After this we must get a model.pkl file in artifacts folder.
-
-
 
 
     except Exception as e:
