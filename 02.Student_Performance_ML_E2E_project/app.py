@@ -1,5 +1,6 @@
 # We know the location of logger.py so lets call it from there.
 import sys
+
 from src.student_performace_MLProject.logger import logging
 
 from src.student_performace_MLProject.exception import CustomException
@@ -10,6 +11,7 @@ from src.student_performace_MLProject.components.model_trainer import ModelTrain
 
 import warnings
 warnings.filterwarnings('ignore')
+
 
 # To check whether things are working file...lets make it.
 if __name__ == "__main__":

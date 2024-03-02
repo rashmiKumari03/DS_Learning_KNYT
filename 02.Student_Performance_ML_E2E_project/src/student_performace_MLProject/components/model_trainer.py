@@ -248,28 +248,23 @@ class ModelTrainer:
             # Saving the best/actual model , saving parameters of actual model
             best_model = models[best_model_name]   # We will use this in mlflow run...too
             logging.info(f"Best_model:{best_model}")
-            
+
+            best_params = params[best_model_name]
+            logging.info(f"Best model parameters: {best_params}")
+    
 
 
             # Initialize MLflow if necessary
+            # Lets use the created function (above) for evaluation metric....eval_metrics
+            # MLflow Pipeline starts from here For Expermiment Tracking.
+            # Install mlflow in requirements.txt and then import it in this file
             mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
             logging.info(f"Traking_url : {tracking_url_type_store}")
 
-
-            # Lets use the created function (above) for evaluation metric....eval_metrics
-            # MLflow Pipeline starts from here For Expermiment Tracking.
-            # Install mlflow in requirements.txt and then import it in this file.s
-
-            mlflow.end_run()
-
             with mlflow.start_run():
-
                 mlflow.autolog(log_models=True)
-                best_model = models[best_model_name]
                 logging.info(f"Best model: {best_model}")
-
-                best_params = params[best_model_name]
                 logging.info(f"Best model parameters: {best_params}")
 
                 mlflow.log_params(best_params)
@@ -281,40 +276,40 @@ class ModelTrainer:
                 mlflow.log_metric("mae", mae)
                 mlflow.log_metric("r2", r2)
 
+                
                 # Model registry does not work with file store
                 # tracking_url_type_store  : This url is that url which was there in Dags hub..
-                    
+
                 if tracking_url_type_store != "file":
 
 
                     # Register the mode
                     # There are other ways to use the Model Resgistry
                     # This tracking_url_type_store we have mentioned above where links we got from DagsHub are there.
-                     mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model_name)
-          
+
+                    mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model_name)
                 else:
-                    mlflow.sklearn.log_model(best_model,"model")
+                    mlflow.sklearn.log_model(best_model, "model")
 
-     
 
-            # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
-            if best_test_score < 0.6:
-                logging.info("Best model's performance is below the threshold. Not saving the model.")
-            else:
-                logging.info("Best model found on both training and testing datasets.")
-                
-                # Saving the best model as a pickle file using save_object function from utiles.
-                save_object(
-                    file_path=self.model_trainer_config.trained_model_file_path,
-                    object=models[best_model_name]
-                )
+                # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
+                if best_test_score < 0.6:
+                    logging.info("Best model's performance is below the threshold. Not saving the model.")
+                else:
+                    logging.info("Best model found on both training and testing datasets.")
+                    
+                    # Saving the best model as a pickle file using save_object function from utiles.
+                    save_object(
+                        file_path=self.model_trainer_config.trained_model_file_path,
+                        object=models[best_model_name]
+                    )
 
-                # Now we can make predictions using X_test data.
-                logging.info("Predciting the X_test and get the accuracy:")
-                predicted = models[best_model_name].predict(X_test)    # For now its X_test but it must be some new data which was not seen by the model...
-                r2_square = r2_score(y_test, predicted)
+                    # Now we can make predictions using X_test data.
+                    logging.info("Predciting the X_test and get the accuracy:")
+                    predicted = models[best_model_name].predict(X_test)    # For now its X_test but it must be some new data which was not seen by the model...
+                    r2_square = r2_score(y_test, predicted)
 
-            return r2_square , models[best_model_name]
+                return r2_square , models[best_model_name]
 
   
 
@@ -322,8 +317,6 @@ class ModelTrainer:
             logging.info("Error has Occured!!!")
             raise CustomException(e,sys)
 
-
-s
 
 
 

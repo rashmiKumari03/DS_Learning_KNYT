@@ -204,7 +204,7 @@ https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow
 - Using MLflow tracking:
 MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow \
 MLFLOW_TRACKING_USERNAME=mlprojectrash \
-MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3 \
+MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3  \
 python script.py
 
 
