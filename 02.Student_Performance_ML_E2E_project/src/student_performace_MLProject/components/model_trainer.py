@@ -277,19 +277,19 @@ class ModelTrainer:
                 mlflow.log_metric("mae",mae)
                 mlflow.log_metric("r2",r2)
 
-            # Model registry does not work with file store
-            # tracking_url_type_store  : This url is that url which was there in Dags hub..
-                
-            if tracking_url_type_store != "file":
+                # Model registry does not work with file store
+                # tracking_url_type_store  : This url is that url which was there in Dags hub..
+                    
+                if tracking_url_type_store != "file":
 
 
-                # Register the mode
-                # There are other ways to use the Model Resgistry
-                # This tracking_url_type_store we have mentioned above where links we got from DagsHub are there.
+                    # Register the mode
+                    # There are other ways to use the Model Resgistry
+                    # This tracking_url_type_store we have mentioned above where links we got from DagsHub are there.
 
-                mlflow.sklearn.log_model(best_model_name,"model",  registered_model_name = best_model_name)
-            else:
-                mlflow.sklearn.log_model(best_model_name,"model")
+                    mlflow.sklearn.log_model(best_model_name,"model",  registered_model_name = best_model_name)
+                else:
+                    mlflow.sklearn.log_model(best_model_name,"model")
 
 
 
