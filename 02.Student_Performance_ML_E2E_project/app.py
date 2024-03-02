@@ -8,6 +8,9 @@ from src.student_performace_MLProject.components.data_transformation import Data
 
 from src.student_performace_MLProject.components.model_trainer import ModelTrainer
 
+import warnings
+warnings.filterwarnings('ignore')
+
 # To check whether things are working file...lets make it.
 if __name__ == "__main__":
     logging.info("The Exectuion has started")

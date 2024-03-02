@@ -33,6 +33,7 @@ from src.student_performace_MLProject.utiles.utiles import save_object,evaluate_
 
 # MLflow
 import mlflow
+import mlflow.sklearn
 
 
 
@@ -251,7 +252,7 @@ class ModelTrainer:
             # saving parameter of of best performing model
             param_actual = params[best_model_name]
 
-
+           
 
             # Here we have to mention the urls we got from DagsHub..
             mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")

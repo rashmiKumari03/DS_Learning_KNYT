@@ -211,7 +211,7 @@ python script.py
 ---------------
 Now Lets go to terminal---> open bash and there write: This will let the mlflow know that it has to log to dagshub repo.
 
-* activate the venv/
+* activate the venv/  using source activate venv/
 * export MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow 
 
 * export MLFLOW_TRACKING_USERNAME=mlprojectrash
