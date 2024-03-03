@@ -212,6 +212,10 @@ python script.py
 
 NOTE : If we run the python app.py directly without config these mlflow exports..(3 below things) then mlrun folder 
 will be created in local repo and all things where tracked..
+![alt text](Reference_img/When_we_run_app_without_config_MLflow_3_things_in_terimal_then_mlruns_generated_in_the_local.png)
+
+
+
 
 But once we use these exports in terminal(bash) then these all things will get stored in the mlflow dags..repo...there we can see all these records.
 
@@ -224,10 +228,25 @@ Now Lets go to terminal---> open bash and there write: This will let the mlflow 
 * export MLFLOW_TRACKING_USERNAME=mlprojectrash
 * export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
 * now run the python app.py
-
+![alt text](Reference_img/08.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
 
 
 AIM : To store the model, parameters , metrics.
+
+Output :
+The Output Pages:
+
+* Experiment Tracking :
+
+
+* Model:
+
+
+* Parameters and Metrics 
+
+
+
+
 
 This setup guide aims to streamline the process of initializing a data science project, ensuring proper version control with Git, and maintaining a clean project structure. Happy coding! 🎉
 

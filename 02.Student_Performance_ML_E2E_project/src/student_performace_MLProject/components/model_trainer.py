@@ -12,6 +12,7 @@ from tabulate import tabulate
 # MLflow
 import mlflow
 import mlflow.sklearn
+import mlflow.pyfunc
 
 
 
@@ -148,41 +149,41 @@ class ModelTrainer:
                 },
 
                 "RandomForest Regressor": {
-                   "n_estimators": [100, 200, 300],
-                   "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                   "max_depth": [None, 10, 20, 50],
-                   "min_samples_split": [2, 5, 10],
+                 #  "n_estimators": [100, 200, 300],
+                  # "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
+                 #  "max_depth": [None, 10, 20, 50],
+                  # "min_samples_split": [2, 5, 10],
                    "max_features": ['auto', 'sqrt', 'log2',None]
                 },
 
                 "AdaBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
+                  #  "n_estimators": [50, 100, 200],
+                  #  "learning_rate": [0.01, 0.1, 1.0],
                     "loss": ['linear', 'square', 'exponential']
                  },
 
                 "GradientBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
-                    "loss": ['ls', 'lad', 'huber', 'quantile'],
-                    "max_depth": [3, 5, 7],
+                  #  "n_estimators": [50, 100, 200],
+                 #   "learning_rate": [0.01, 0.1, 1.0],
+                 #   "loss": ['ls', 'lad', 'huber', 'quantile'],
+                  #  "max_depth": [3, 5, 7],
                     "min_samples_split": [2, 5, 10]
                 },
 
                 "XGBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 0.3],
-                    "max_depth": [3, 5, 7],
+                  #  "n_estimators": [50, 100, 200],
+                  #  "learning_rate": [0.01, 0.1, 0.3],
+                 #   "max_depth": [3, 5, 7],
                     "subsample": [0.5, 0.8, 1.0],
-                    "colsample_bytree": [0.5, 0.8, 1.0]
+                  #  "colsample_bytree": [0.5, 0.8, 1.0]
                 },
 
                 "CatBoost Regressor": {
-                   "iterations": [100, 200, 300],
+                  # "iterations": [100, 200, 300],
                    "learning_rate": [0.01, 0.1, 0.3],
-                   "depth": [4, 6, 8],
-                   "l2_leaf_reg": [1, 3, 5],
-                   "border_count": [32, 64, 128]
+                  # "depth": [4, 6, 8],
+                  # "l2_leaf_reg": [1, 3, 5],
+                  # "border_count": [32, 64, 128]
                 }
                 
 
@@ -250,11 +251,12 @@ class ModelTrainer:
 
             # Lets get the Name of the best model , and its parameters.
             best_model = models[best_model_name]
+            logging.info(f"Datatype of best_model_name:{type(best_model_name)}")
             best_params = best_model.get_params()
       
 
             logging.info(f"The Best Model we got is :{best_model}")
-            logging.info(f"All parameters of {best_model}")
+            logging.info(f"Best parameters of {best_params}")
   
     
             
@@ -263,15 +265,21 @@ class ModelTrainer:
             # Lets use the created function (above) for evaluation metric....eval_metrics
             # MLflow Pipeline starts from here For Expermiment Tracking.
             # Install mlflow in requirements.txt and then import it in this file
+
             mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-            logging.info(f"Traking_url  : {tracking_url_type_store}")
-
-         
             
-            with mlflow.start_run():
+            logging.info(f"Traking_url : {tracking_url_type_store}")
+            logging.info(f"Type of tracking_url_type_store:{type(tracking_url_type_store)}")
+
+
+                    
+            # Create nested runs
+            logging.info("Its Better to mention the parameters of start_run() like exp_id,tags ,run_names...Otherwise it might possible that it will through error.")
+            experiment_id = mlflow.create_experiment("experiment1")
+       
+            with mlflow.start_run(run_name="Student_performance_run",experiment_id=experiment_id,tags={"version": "v1", "priority": "P1"}):
                 logging.info(f"Logging of mlflow started and Best model:{best_model_name}")
-                
                 predicted_quantities = best_model.predict(X_test)
                 rmse, mae, r2 = self.eval_metrics(y_test, predicted_quantities)
                 logging.info("Recording the parameters and metric....")
@@ -285,7 +293,7 @@ class ModelTrainer:
                 # Model registry does not work with file store
                 # tracking_url_type_store  : This url is that url which was there in Dags hub..
 
-                if tracking_url_type_store != "file":
+                if tracking_url_type_store!= "file":
 
 
                     # Register the mode
