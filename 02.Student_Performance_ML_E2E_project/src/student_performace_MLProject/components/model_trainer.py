@@ -149,41 +149,41 @@ class ModelTrainer:
                 },
 
                 "RandomForest Regressor": {
-                 #  "n_estimators": [100, 200, 300],
-                  # "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                 #  "max_depth": [None, 10, 20, 50],
-                  # "min_samples_split": [2, 5, 10],
+                   "n_estimators": [100, 200, 300],
+                   "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
+                   "max_depth": [None, 10, 20, 50],
+                   "min_samples_split": [2, 5, 10],
                    "max_features": ['auto', 'sqrt', 'log2',None]
                 },
 
                 "AdaBoost Regressor": {
-                  #  "n_estimators": [50, 100, 200],
-                  #  "learning_rate": [0.01, 0.1, 1.0],
+                    "n_estimators": [50, 100, 200],
+                    "learning_rate": [0.01, 0.1, 1.0],
                     "loss": ['linear', 'square', 'exponential']
                  },
 
                 "GradientBoost Regressor": {
-                  #  "n_estimators": [50, 100, 200],
-                 #   "learning_rate": [0.01, 0.1, 1.0],
-                 #   "loss": ['ls', 'lad', 'huber', 'quantile'],
-                  #  "max_depth": [3, 5, 7],
+                    "n_estimators": [50, 100, 200],
+                    "learning_rate": [0.01, 0.1, 1.0],
+                    "loss": ['ls', 'lad', 'huber', 'quantile'],
+                    "max_depth": [3, 5, 7],
                     "min_samples_split": [2, 5, 10]
                 },
 
                 "XGBoost Regressor": {
-                  #  "n_estimators": [50, 100, 200],
-                  #  "learning_rate": [0.01, 0.1, 0.3],
-                 #   "max_depth": [3, 5, 7],
+                    "n_estimators": [50, 100, 200],
+                    "learning_rate": [0.01, 0.1, 0.3],
+                    "max_depth": [3, 5, 7],
                     "subsample": [0.5, 0.8, 1.0],
-                  #  "colsample_bytree": [0.5, 0.8, 1.0]
+                    "colsample_bytree": [0.5, 0.8, 1.0]
                 },
 
                 "CatBoost Regressor": {
-                  # "iterations": [100, 200, 300],
+                   "iterations": [100, 200, 300],
                    "learning_rate": [0.01, 0.1, 0.3],
-                  # "depth": [4, 6, 8],
-                  # "l2_leaf_reg": [1, 3, 5],
-                  # "border_count": [32, 64, 128]
+                   "depth": [4, 6, 8],
+                   "l2_leaf_reg": [1, 3, 5],
+                   "border_count": [32, 64, 128]
                 }
                 
 
