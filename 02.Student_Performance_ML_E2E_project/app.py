@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
 
         data_transformation = DataTransformation()
-        train_array , test_array , _ = data_transformation.initiate_data_transformation(train_data_path,test_data_path)  # It returns 3 things train_array ,test_array and preprocessor.pkl where feature transformer was saved.
+        train_array , test_array , _ = data_transformation.initiate_data_transformation(train_data_path,test_data_path)  # It returns 3 things train_array ,test_array and  preprocessor.pkl where feature transformer was saved.
         # After this we must get a preprocessor.pkl file in artifacts folder.
 
 

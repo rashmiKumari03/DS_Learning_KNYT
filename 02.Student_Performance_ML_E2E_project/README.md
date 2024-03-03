@@ -171,28 +171,35 @@ But doing this will track the code but if we see in raw.csv --> no change we cou
 
 3. Data transformation code:
 
+![alt text](Reference_img/app.py_pipelineflow_in_short.png)
+
+So After DataIngestion as output we got the raw.csv , train.csv and test.csv files in artifacts folder..
+So in next step of this Pipeline we use these files as input and perform feature transformations so that we can use scikitlearn and train our models
+to get best predictions..for test data.
+OutPut : train_array and test_array and a preprocessor.pkl file having the stored feature transformer.
+(coded in : data_transformation.py , utiles.py and app.py)
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Model Trainer code:
+
+Here the Input will be the output of last step ie. train_array ,test_array ....and now we define models and parameters for them and defined eval_metircs and 
+made a evalution_model in utiles file...to evaluate the model performance...also to save the model we use save_object wich we have already created in data transformation step..
+Output : metric ...r2_score , model....
+Coded in : model_trainer.py , utiles.py and app.py
+
+Also Here we Perform MLFLOW and DAGSHUB: This will do model_registry with logging the model , parameters and its (best_model) metirc.
+
+###### Lets run app.py in terminal first and check whether model is getting saved or not.
 
 
+![alt text](Reference_img/07.model_result.png)
+
+![alt text](Reference_img/07.model_result.png)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Then Perform this MLFLOW & DAGSHUB
 
 # MLFLow Experiment Tracking & Dags
 To execute this mlflow tracking....we have these things.
@@ -212,7 +219,7 @@ python script.py
 
 NOTE : If we run the python app.py directly without config these mlflow exports..(3 below things) then mlrun folder 
 will be created in local repo and all things where tracked..
-![alt text](Reference_img/When_we_run_app_without_config_MLflow_3_things_in_terimal_then_mlruns_generated_in_the_local.png)
+![alt text](Reference_img/08.When_we_run_app_without_config_MLflow_3_things_in_terimal_then_mlruns_generated_in_the_local.png)
 
 
 
@@ -228,8 +235,8 @@ Now Lets go to terminal---> open bash and there write: This will let the mlflow 
 * export MLFLOW_TRACKING_USERNAME=ML_projects
 * export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
 * now run the python app.py
+![alt text](Reference_img/09.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
 
-![alt text](Reference_img/08.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
 
 
 AIM : To store the model, parameters , metrics.
@@ -238,12 +245,27 @@ Output :
 The Output Pages:
 
 * Experiment Tracking :
+![alt text](<Reference_img/10. experiment_track_dagshub.png>)
+![alt text](Reference_img/11.metrics_parameters_exp_track_dagshub.png)
 
 
 * Model:
+![alt text](Reference_img/12.Registered_Model.png)
+
+* Lets go to MlFLow GUI How??? right button "MLflow GUI"
+![alt text](<Reference_img/13.Using this mlflow_gui_in_blue_lets_got_to_mlflow_page.png>)
+
 
 
 * Parameters and Metrics 
+
+![alt text](Reference_img/14.Mlflow_1.png)
+
+![alt text](Reference_img/15.MLflow_2.png)
+
+![alt text](Reference_img/16.Mlflow_3.png)
+
+
 
 
 
