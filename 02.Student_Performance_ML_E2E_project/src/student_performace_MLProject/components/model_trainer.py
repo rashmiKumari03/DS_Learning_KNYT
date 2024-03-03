@@ -12,8 +12,6 @@ from tabulate import tabulate
 # MLflow
 import mlflow
 import mlflow.sklearn
-import mlflow.pyfunc
-
 
 
 from src.student_performace_MLProject.exception import CustomException
@@ -149,41 +147,41 @@ class ModelTrainer:
                 },
 
                 "RandomForest Regressor": {
-                   "n_estimators": [100, 200, 300],
+                #   "n_estimators": [100, 200, 300],
                    "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                   "max_depth": [None, 10, 20, 50],
-                   "min_samples_split": [2, 5, 10],
+                 #  "max_depth": [None, 10, 20, 50],
+                 #  "min_samples_split": [2, 5, 10],
                    "max_features": ['auto', 'sqrt', 'log2',None]
                 },
 
                 "AdaBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
+                 #   "n_estimators": [50, 100, 200],
                     "learning_rate": [0.01, 0.1, 1.0],
                     "loss": ['linear', 'square', 'exponential']
                  },
 
                 "GradientBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
-                    "loss": ['ls', 'lad', 'huber', 'quantile'],
-                    "max_depth": [3, 5, 7],
+                 #   "n_estimators": [50, 100, 200],
+                 #   "learning_rate": [0.01, 0.1, 1.0],
+                 #   "loss": ['ls', 'lad', 'huber', 'quantile'],
+                 #   "max_depth": [3, 5, 7],
                     "min_samples_split": [2, 5, 10]
                 },
 
                 "XGBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 0.3],
+                  #  "n_estimators": [50, 100, 200],
+                  #  "learning_rate": [0.01, 0.1, 0.3],
                     "max_depth": [3, 5, 7],
-                    "subsample": [0.5, 0.8, 1.0],
+                  #  "subsample": [0.5, 0.8, 1.0],
                     "colsample_bytree": [0.5, 0.8, 1.0]
                 },
 
                 "CatBoost Regressor": {
-                   "iterations": [100, 200, 300],
-                   "learning_rate": [0.01, 0.1, 0.3],
-                   "depth": [4, 6, 8],
+                 #  "iterations": [100, 200, 300],
+                 #  "learning_rate": [0.01, 0.1, 0.3],
+                  # "depth": [4, 6, 8],
                    "l2_leaf_reg": [1, 3, 5],
-                   "border_count": [32, 64, 128]
+                  # "border_count": [32, 64, 128]
                 }
                 
 
@@ -246,7 +244,7 @@ class ModelTrainer:
 
 
 
-            logging.info("Start the MLflow Experiment Tracking part......")
+            logging.info("Start Config the MLflow Experiment Tracking and Dagshub......")
             # MLflow and Dags Code..
 
             # Lets get the Name of the best model , and its parameters.
@@ -267,19 +265,18 @@ class ModelTrainer:
             # Install mlflow in requirements.txt and then import it in this file
 
             mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
-            tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
-            
-            logging.info(f"Traking_url : {tracking_url_type_store}")
-            logging.info(f"Type of tracking_url_type_store:{type(tracking_url_type_store)}")
+            uri = mlflow.get_tracking_uri()
+            logging.info(f"Current registry uri: {uri}")
+            tracking_uri = mlflow.get_tracking_uri()
+            track = urlparse(tracking_uri).scheme
 
+            logging.info(f"Current tracking uri: {tracking_uri}")
+            logging.info(f"Type of tracking_url_type_store:{type(tracking_uri)}")
+            logging.info(f"Track:{track}")
 
-                    
-            # Create nested runs
-            logging.info("Its Better to mention the parameters of start_run() like exp_id,tags ,run_names...Otherwise it might possible that it will through error.")
-            experiment_id = mlflow.create_experiment("experiment1")
        
-            with mlflow.start_run(run_name="Student_performance_run",experiment_id=experiment_id,tags={"version": "v1", "priority": "P1"}):
-                logging.info(f"Logging of mlflow started and Best model:{best_model_name}")
+            with mlflow.start_run(experiment_id='SP_exp_1',run_id="Student_Performance"):
+                
                 predicted_quantities = best_model.predict(X_test)
                 rmse, mae, r2 = self.eval_metrics(y_test, predicted_quantities)
                 logging.info("Recording the parameters and metric....")
@@ -293,7 +290,7 @@ class ModelTrainer:
                 # Model registry does not work with file store
                 # tracking_url_type_store  : This url is that url which was there in Dags hub..
 
-                if tracking_url_type_store!= "file":
+                if track != "file":
 
 
                     # Register the mode
@@ -303,30 +300,31 @@ class ModelTrainer:
                     mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model_name)
                 else:
                     mlflow.sklearn.log_model(best_model, "model")
+                
+                
 
-               
 
 
-                # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
-                if best_test_score < 0.6:
-                    logging.info("Best model's performance is below the threshold. Not saving the model.")
-                else:
-                    logging.info("Best model found on both training and testing datasets.")
-                    
-                    # Saving the best model as a pickle file using save_object function from utiles.
-                    save_object(
-                        file_path=self.model_trainer_config.trained_model_file_path,
-                        object=models[best_model_name]
-                    )
+            # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
+            if best_test_score < 0.6:
+                logging.info("Best model's performance is below the threshold. Not saving the model.")
+            else:
+                logging.info("Best model found on both training and testing datasets.")
+                
+                # Saving the best model as a pickle file using save_object function from utiles.
+                save_object(
+                    file_path=self.model_trainer_config.trained_model_file_path,
+                    object=models[best_model_name]
+                )
 
-                    # Now we can make predictions using X_test data.
-                    logging.info("Predciting the X_test and get the accuracy:")
-                    predicted = models[best_model_name].predict(X_test)    # For now its X_test but it must be some new data which was not seen by the model...
-                    r2_square = r2_score(y_test, predicted)
+                # Now we can make predictions using X_test data.
+                logging.info("Predciting the X_test and get the accuracy:")
+                predicted = models[best_model_name].predict(X_test)    # For now its X_test but it must be some new data which was not seen by the model...
+                r2_square = r2_score(y_test, predicted)
 
-                return r2_square , models[best_model_name]
+            return r2_square , models[best_model_name]
 
-  
+
 
         except Exception as e:
             logging.info("Error has Occured!!!")

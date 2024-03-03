@@ -198,12 +198,12 @@ But doing this will track the code but if we see in raw.csv --> no change we cou
 To execute this mlflow tracking....we have these things.
 
 - MLflow Tracking remote:
-https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow
+https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow
 
 
 - Using MLflow tracking:
-MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow \
-MLFLOW_TRACKING_USERNAME=mlprojectrash \
+MLFLOW_TRACKING_URI=https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow \
+MLFLOW_TRACKING_USERNAME=ML_projects \
 MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3  \
 python script.py
 
@@ -223,11 +223,12 @@ But once we use these exports in terminal(bash) then these all things will get s
 Now Lets go to terminal---> open bash and there write: This will let the mlflow know that it has to log to dagshub repo.
 
 * activate the venv/  using source activate venv/
-* export MLFLOW_TRACKING_URI=https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow 
+* export MLFLOW_TRACKING_URI=https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow
 
-* export MLFLOW_TRACKING_USERNAME=mlprojectrash
+* export MLFLOW_TRACKING_USERNAME=ML_projects
 * export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
 * now run the python app.py
+
 ![alt text](Reference_img/08.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
 
 
