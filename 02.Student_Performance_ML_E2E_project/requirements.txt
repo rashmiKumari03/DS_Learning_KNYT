@@ -9,6 +9,8 @@ xgboost
 catboost
 tabulate
 mlflow
+flask
+dill
 
 
 # -e .

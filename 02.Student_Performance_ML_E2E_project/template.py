@@ -24,7 +24,11 @@ list_of_files=[
     f"src/{project_name}/logger.py",
     "app.py",
     "requirements.txt",
-    "setup.py"
+    "setup.py",
+
+    "templates/home.html",
+    "templates/index.html"
+   
 
 ]
 

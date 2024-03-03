@@ -9,6 +9,7 @@ warnings.filterwarnings('ignore')
 from src.student_performace_MLProject.logger import logging
 from src.student_performace_MLProject.exception import CustomException
 import numpy as np
+import dill
 
 
 from sklearn.model_selection import GridSearchCV
@@ -117,3 +118,16 @@ def evaluate_model(X_train,y_train,X_test,y_test,models,param):
     except Exception as e:
         logging.info("Some Error Occured !!!")
         raise CustomException(e,sys)
+
+
+# Creating the load_object to load the pickle files (stored) for usage in Prediction Pipeline..to predict the new incoming data.
+    
+def load_object(file_path):
+
+    try:
+        with open(file_path,"rb") as file_obj:
+            return dill.load(file_obj)
+    except Exception as e:
+        raise CustomException(e,sys)
+
+    
