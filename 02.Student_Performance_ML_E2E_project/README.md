@@ -196,7 +196,7 @@ Also Here we Perform MLFLOW and DAGSHUB: This will do model_registry with loggin
 
 ![alt text](Reference_img/07.model_result.png)
 
-![alt text](Reference_img/07.model_result.png)
+![alt text](Reference_img/07.1.best_model.png)
 
 
 Then Perform this MLFLOW & DAGSHUB
