@@ -103,14 +103,14 @@ class ModelTrainer:
                  #   "fit_intercept": [True, False],
                  #   "copy_X": [True, False],
                  #   "n_jobs": [None, -1, 1, 2]
-                   },
+                },
                     
                 "Rigid Regression": {
                  #   "alpha": [0.1, 0.5, 1.0, 5.0],
                  #   "fit_intercept": [True, False],
                  #   "copy_X": [True, False],
                     "max_iter": [None, 1000, 5000]
-                    },
+                },
 
                 "Lasso Regression": {
                     "alpha": [0.1, 0.5, 1.0, 5.0],
@@ -185,6 +185,7 @@ class ModelTrainer:
                     "border_count": [32, 64, 128]
                 }
                 
+
                 }
 
             # In the 'utils' file, we define a function 'evaluate_model' for assessing the performance of a model.
@@ -246,14 +247,16 @@ class ModelTrainer:
 
             logging.info("Start the MLflow Experiment Tracking part......")
             # MLflow and Dags Code..
-                
-            # Saving the best/actual model , saving parameters of actual model
-            best_model = models[best_model_name]   # We will use this in mlflow run...too
-            logging.info(f"Best_model:{best_model}")
 
-            # This will extract all possible parameters used to get the best parameter.
-            best_params = best_model.__dict__
-            logging.info(f"Best Parameters for best model:{best_params}")
+            # Lets get the Name of the best model , and its parameters.
+            best_model = models[best_model_name]
+            best_params = best_model.get_params()
+      
+
+            logging.info(f"The Best Model we got is :{best_model}")
+            logging.infp(f"All parameters of {best_model}")
+  
+    
             
     
             # Initialize MLflow if necessary
@@ -265,17 +268,14 @@ class ModelTrainer:
             logging.info(f"Traking_url  : {tracking_url_type_store}")
 
          
-
-            with mlflow.start_run(run_name="Student_Performance"):
-                mlflow.autolog(log_models=True)
-                logging.info(f"Logging of mlflow started and Best model: {best_model}")
-                logging.info(f"Logging of mlflow started and Best model parameters: {best_params}")
-
-                mlflow.log_params(best_params)
-
+            
+            with mlflow.start_run():
+                logging.info(f"Logging of mlflow started and Best model:{best_model_name}")
+                
                 predicted_quantities = best_model.predict(X_test)
                 rmse, mae, r2 = self.eval_metrics(y_test, predicted_quantities)
-                logging.info("Recording the metrics....")
+                logging.info("Recording the parameters and metric....")
+                mlflow.log_params(best_model_name,best_params)
 
                 mlflow.log_metric("rmse", rmse)
                 mlflow.log_metric("mae", mae)
@@ -296,7 +296,7 @@ class ModelTrainer:
                 else:
                     mlflow.sklearn.log_model(best_model, "model")
 
-                mlflow.close()
+               
 
 
                 # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
