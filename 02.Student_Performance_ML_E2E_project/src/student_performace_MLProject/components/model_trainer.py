@@ -100,16 +100,16 @@ class ModelTrainer:
 
             params = {
                 "Linear Regression": {
-                    "fit_intercept": [True, False],
-                    "copy_X": [True, False],
-                    "n_jobs": [None, -1, 1, 2]
+                 #   "fit_intercept": [True, False],
+                 #   "copy_X": [True, False],
+                 #   "n_jobs": [None, -1, 1, 2]
                    },
                     
                 "Rigid Regression": {
-                    "alpha": [0.1, 0.5, 1.0, 5.0],
-                    "fit_intercept": [True, False],
-                    "copy_X": [True, False],
-                     "max_iter": [None, 1000, 5000]
+                 #   "alpha": [0.1, 0.5, 1.0, 5.0],
+                 #   "fit_intercept": [True, False],
+                 #   "copy_X": [True, False],
+                    "max_iter": [None, 1000, 5000]
                     },
 
                 "Lasso Regression": {
@@ -148,40 +148,40 @@ class ModelTrainer:
                 },
 
                 "RandomForest Regressor": {
-                   "n_estimators": [100, 200, 300],
-                   "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
-                   "max_depth": [None, 10, 20, 50],
-                    "min_samples_split": [2, 5, 10],
-                   "max_features": ['auto', 'sqrt', 'log2',None]
+                #   "n_estimators": [100, 200, 300],
+                 #  "criterion": ['squared_error', 'absolute_error', 'poisson','friedman_mse'],
+                 #  "max_depth": [None, 10, 20, 50],
+                 #   "min_samples_split": [2, 5, 10],
+                  # "max_features": ['auto', 'sqrt', 'log2',None]
                 },
 
                 "AdaBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
+                  #  "n_estimators": [50, 100, 200],
                     "learning_rate": [0.01, 0.1, 1.0],
                     "loss": ['linear', 'square', 'exponential']
                  },
 
                 "GradientBoost Regressor": {
-                    "n_estimators": [50, 100, 200],
-                    "learning_rate": [0.01, 0.1, 1.0],
-                    "loss": ['ls', 'lad', 'huber', 'quantile'],
-                    "max_depth": [3, 5, 7],
+                  #  "n_estimators": [50, 100, 200],
+                  #  "learning_rate": [0.01, 0.1, 1.0],
+                  #  "loss": ['ls', 'lad', 'huber', 'quantile'],
+                   # "max_depth": [3, 5, 7],
                     "min_samples_split": [2, 5, 10]
                 },
 
                 "XGBoost Regressor": {
-                   "n_estimators": [50, 100, 200],
-                   "learning_rate": [0.01, 0.1, 0.3],
-                    "max_depth": [3, 5, 7],
-                    "subsample": [0.5, 0.8, 1.0],
+                  # "n_estimators": [50, 100, 200],
+                  # "learning_rate": [0.01, 0.1, 0.3],
+                  #  "max_depth": [3, 5, 7],
+                   # "subsample": [0.5, 0.8, 1.0],
                     "colsample_bytree": [0.5, 0.8, 1.0]
                 },
 
                 "CatBoost Regressor": {
-                   "iterations": [100, 200, 300],
-                   "learning_rate": [0.01, 0.1, 0.3],
-                    "depth": [4, 6, 8],
-                    "l2_leaf_reg": [1, 3, 5],
+                  # "iterations": [100, 200, 300],
+                  # "learning_rate": [0.01, 0.1, 0.3],
+                  #  "depth": [4, 6, 8],
+                   # "l2_leaf_reg": [1, 3, 5],
                     "border_count": [32, 64, 128]
                 }
                 
@@ -266,7 +266,9 @@ class ModelTrainer:
             tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
             logging.info(f"Traking_url  : {tracking_url_type_store}")
 
-            with mlflow.start_run():
+         
+
+            with mlflow.start_run(run_name="Student_Performance"):
                 mlflow.autolog(log_models=True)
                 logging.info(f"Logging of mlflow started and Best model: {best_model}")
                 logging.info(f"Logging of mlflow started and Best model parameters: {best_params}")
@@ -295,6 +297,8 @@ class ModelTrainer:
                     mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model_name)
                 else:
                     mlflow.sklearn.log_model(best_model, "model")
+
+                mlflow.close()
 
 
                 # Let's also set a threshold: if the model performance is less than 60%, then don't save it.
