@@ -264,7 +264,7 @@ class ModelTrainer:
             # MLflow Pipeline starts from here For Expermiment Tracking.
             # Install mlflow in requirements.txt and then import it in this file
 
-            mlflow.set_registry_uri("https://dagshub.com/mlprojectrash/DS_Learning_KNYT.mlflow")
+            mlflow.set_registry_uri("https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow")
             uri = mlflow.get_tracking_uri()
             logging.info(f"Current registry uri: {uri}")
             tracking_uri = mlflow.get_tracking_uri()
@@ -275,7 +275,7 @@ class ModelTrainer:
             logging.info(f"Track:{track}")
 
        
-            with mlflow.start_run(experiment_id='SP_exp_1',run_id="Student_Performance"):
+            with mlflow.start_run(experiment_id='SP_exp_1'):
                 
                 predicted_quantities = best_model.predict(X_test)
                 rmse, mae, r2 = self.eval_metrics(y_test, predicted_quantities)
