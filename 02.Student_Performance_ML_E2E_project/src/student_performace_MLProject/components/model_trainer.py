@@ -254,7 +254,7 @@ class ModelTrainer:
       
 
             logging.info(f"The Best Model we got is :{best_model}")
-            logging.infp(f"All parameters of {best_model}")
+            logging.info(f"All parameters of {best_model}")
   
     
             
