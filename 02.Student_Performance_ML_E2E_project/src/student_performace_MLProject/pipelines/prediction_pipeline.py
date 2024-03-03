@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 from src.student_performace_MLProject.exception import CustomException
 from src.student_performace_MLProject.utiles.utiles import load_object  #load_object just tto load the pickle file
+from src.student_performace_MLProject.logger import logging
 
 
 class PredictPipeline:
@@ -13,15 +14,19 @@ class PredictPipeline:
     def predict(self,features):
 
         try:
-            model_path = 'artifacts\model.pkl'
-            preprocessor_path='artifacts\preprocessor.pkl'
+
+            preprocessor_path=os.path.join("artifacts","preprocessor.pkl")
+            model_path=os.path.join("artifacts","model.pkl")
 
             model = load_object(file_path=model_path)   # We will take this load object from utiles we have creted there.
-            preprocessor = load_object(file_path=preprocessor_path)
+            preprocessor = load_object(file_path= preprocessor_path)
 
             # Now we need to transform the features
             data_transform = preprocessor.transform(features)
+            logging.info(f"data_transform:{data_transform}")
+
             pred = model.predict(data_transform)
+            logging.info(f"pred={pred}")
         except Exception as e:
             raise CustomException(e,sys)
 
@@ -40,12 +45,12 @@ class CustomData:
          writing_score:int):
           
 
-        self.gender = gender,
-        self.race_ethnicity = race_ethnicity,
-        self.parental_level_of_education=parental_level_of_education,
-        self.lunch= lunch,
-        self.test_preparation_course=test_preparation_course,
-        self.reading_score= reading_score,
+        self.gender = gender
+        self.race_ethnicity = race_ethnicity
+        self.parental_level_of_education=parental_level_of_education
+        self.lunch= lunch
+        self.test_preparation_course=test_preparation_course
+        self.reading_score= reading_score
         self.writing_score=writing_score
 
     def get_data_as_DataFrame(self):
@@ -61,8 +66,11 @@ class CustomData:
             "writing_score":[self.writing_score]
 
             }
+            
+            logging.info('Dataframe Gathered')
 
             return pd.DataFrame(custom_data_input_dict)   # We returned the dict as a dataframe...whatever input we recived from the html webpage.
+     
 
         except Exception as e:
             raise CustomException(e,sys)

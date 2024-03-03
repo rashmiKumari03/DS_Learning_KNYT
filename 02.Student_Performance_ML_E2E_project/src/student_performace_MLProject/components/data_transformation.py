@@ -69,9 +69,11 @@ class DataTransformation:
 
             cat_pipeline = Pipeline(steps=[
                 ("imputer",SimpleImputer(strategy='most_frequent')),
-                ("Ohe",OneHotEncoder())
+                ("Ohe",OneHotEncoder(handle_unknown='ignore'))
 
             ])
+
+            # handle_unknown -->'ignore' : When an unknown category is encountered during transform, the resulting one-hot encoded columns for this feature will be all zeros.
 
             logging.info(f"Numerical Columns:{num_features}")
             logging.info(f"Categorical Columns:{ cat_features}")
