@@ -198,8 +198,11 @@ Also Here we Perform MLFLOW and DAGSHUB: This will do model_registry with loggin
 
 ![alt text](Reference_img/07.1.best_model.png)
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Then Perform this MLFLOW & DAGSHUB
+
+Then 
+# 5. Perform this MLFLOW & DAGSHUB
 
 # MLFLow Experiment Tracking & Dags
 To execute this mlflow tracking....we have these things.
@@ -264,6 +267,30 @@ The Output Pages:
 ![alt text](Reference_img/15.MLflow_2.png)
 
 ![alt text](Reference_img/16.Mlflow_3.png)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+# 6. Prediction Pipeline...
+
+* In previous step once we have run the python app.py in bash terminal this have created preprocessor.pkl which handle unknown data too and model.pkl...
+both are there in artifacts folder.
+
+* Created load_object function in utiles.py to load the csaved pickle file in prediction_pipeline.py to use it for further prediction
+
+* Now using these preprocessor.pkl and model.pkl in the PREDICTION PIPELINE , creating templates folder having html files for webpages which further 
+interacts with main_app.py ...
+
+on bash ---> venv activated ---> run "python main_app.py"
+
+
+.we will take the new datapoints from the predict webpage and Running on http://127.0.0.1:8000 and do the prediction.
+
+(coded in : Prediction Pipeline , main_app.py , utiles.py , templates folder--> html files.)
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+# 7. We will see what we will do with  existing app.py and How to create training_pipeline.py.
+
+
+
+
 
 
 

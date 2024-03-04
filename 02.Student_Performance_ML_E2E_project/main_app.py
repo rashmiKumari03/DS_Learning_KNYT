@@ -39,6 +39,7 @@ def predict_datapoint():
 
         predict_pipeline = PredictPipeline()
         result = predict_pipeline.predict(pred_df)
+        result = np.round(result,2)      # Just to make it round off..for easy understanding .
 
         return render_template("home.html", result=result[0])
 
