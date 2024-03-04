@@ -56,6 +56,11 @@ python main_train.py
 
 Traing Done With Model Reg. and Exp Tracking :
 
+![alt text](Reference_img/(c)Training_done_with_mlflow_dagshub_UI.png)
+
+![alt text](Reference_img/(d)DagsHub_Exp_tracking_params_metrics.png)
+
+![alt text](Reference_img/(e)Mlflow_exp_tracking_and_model_Regisetry_params_metrics_.png)
 
 
 ### Step 4: Prediction and WebPage Integration
