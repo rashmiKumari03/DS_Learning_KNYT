@@ -5,9 +5,17 @@ from src.student_performace_MLProject.components.data_ingestion import DataInges
 from src.student_performace_MLProject.components.data_transformation import DataTransformation
 from src.student_performace_MLProject.components.model_trainer import ModelTrainer
 import warnings
+
 warnings.filterwarnings('ignore')
 
 def run_training_pipeline():
+    """
+    Run the training pipeline.
+
+    This function initiates data ingestion, transformation, and model training.
+    """
+
+    logging.info("Training Pipeline Has Started!!!!")
     try:
         logging.info("The Execution has started")
 
@@ -20,14 +28,9 @@ def run_training_pipeline():
         model_trainer = ModelTrainer()
         r2_score, model_name = model_trainer.initiate_model_trainer(train_array, test_array)
 
-        logging.info(f"Best Model Name is:{model_name} and its r2_score is:{r2_score}")
+        logging.info(f"Best Model Name is: {model_name} and its r2_score is: {r2_score}")
 
     except Exception as e:
-        logging.error("Custom Exception Executed")
-        raise CustomException(e, sys)
+        logging.error("Error occurred during training pipeline execution")
+        raise CustomException(e)
 
-if __name__ == "__main__":
-
-    logging.info("Training Pipeline Has Started!!!!")
-    warnings.filterwarnings('ignore')
-    run_training_pipeline()
