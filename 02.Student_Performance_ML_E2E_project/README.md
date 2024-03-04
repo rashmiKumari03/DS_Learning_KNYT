@@ -72,6 +72,8 @@ python main_app.py
 
 This will process incoming data from the server/webpage and provide predicted outputs on the webpage.
 
+![alt text](<Reference_img/(f) main_app.py_leds_to_webpage_form.png>)
+
 ---
 
 **How to Run this Code**
