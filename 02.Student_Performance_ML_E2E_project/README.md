@@ -26,6 +26,9 @@ Run the following command to train the model:
 ```bash
 python main_train.py
 ```
+Training Done:
+![alt text](<Reference_img/(a) Training_done_mlflow_on_local.png>)
+
 
 #### Option 2: Using MLflow & DagsHub
 To utilize MLflow and DagsHub for model training and evaluation metrics, follow these steps:
@@ -48,7 +51,12 @@ export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
 ```bash
 python main_train.py
 ```
-![alt text](Reference_img/09.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
+![alt text](Reference_img/(b)Training_command_with_mlflow_dags_exp_tracking.png)`
+
+
+Traing Done With Model Reg. and Exp Tracking :
+
+
 
 ### Step 4: Prediction and WebPage Integration
 Run the following command to initiate prediction and integrate with the webpage:

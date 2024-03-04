@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Admin/Desktop/DS_Learning_KNYT/02.Student_Performance_ML_E2E_project/mlruns/0/8006aa6b60bf4d78a060c85e196ea1f8/artifacts
+end_time: 1709555313916
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8006aa6b60bf4d78a060c85e196ea1f8
+run_name: intelligent-grub-344
+run_uuid: 8006aa6b60bf4d78a060c85e196ea1f8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1709555305237
+status: 3
+tags: []
+user_id: root
