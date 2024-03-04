@@ -41,8 +41,8 @@ class CustomData:
          parental_level_of_education:str,
          lunch:str,
          test_preparation_course:str,
-         reading_score:int,
-         writing_score:int):
+         reading_score:float,
+         writing_score:float):
           
 
         self.gender = gender

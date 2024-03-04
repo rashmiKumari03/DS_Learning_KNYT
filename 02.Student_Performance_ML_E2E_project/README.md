@@ -288,6 +288,37 @@ on bash ---> venv activated ---> run "python main_app.py"
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 # 7. We will see what we will do with  existing app.py and How to create training_pipeline.py.
 
+Till now we have used app.py for execution of all .py components files....but now ...To make things more strucutued we will make training_pipeline.py.
+In it same code would be there in function form...that function we call in another file "main_train.py"
+
+Therefore:
+Approach will be:
+
+* Step 1: Open the terminal and activate the envirnoment .
+* Step 2: Install all the required libraries using " pip install -r requirements.txt"
+-------------------------------------------------------------------------------------------------------------------------
+* Step 3: For Training in terminal :    "python main_train.py"   #This helps us to create preprocessor.pkl and model.pkl
+
+                                                 OR 
+
+* `Step 3: We can directly do this step...`
+
+`MLflow & DagsHub and Model training and Evalution Metrics` : 
+
+          `go to bash terminal --> activate the env. --> pass these mlflow 3 things.`
+          - activate the venv/  using source activate venv/
+          - export MLFLOW_TRACKING_URI=https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow
+          - export MLFLOW_TRACKING_USERNAME=ML_projects
+          - export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
+          - now run the python main_train.py
+
+
+![alt text](Reference_img/09.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
+
+* Step 4: For Prediction and WebPage integration :  "python main_app.py"   # This will take the incoming data from server/webpage and then pass it to prediction_pipeline...
+after as a result we will get the predicted output on the webpage.
+* 
+
 
 
 
