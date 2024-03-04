@@ -1,9 +1,9 @@
-# Welcome to End to End Data Science Project Setup Guide (Student Performance) 🚀
+# Welcome to End to End Data Science Project (Student Performance) 🚀
 -------------------------------------------------------------------------------------------------------------------------------------------
 ![alt text](Reference_img/SP_gif.gif)
 
 
-**GitHub Guide: How to Use**
+# GitHub Guide: How to Use
 
 ### Step 1: Activate the Environment
 Open the terminal and activate the environment using:
