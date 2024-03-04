@@ -9,7 +9,7 @@
 Open the terminal and activate the environment using:
 
 ```bash
-source activate your_environment_name
+source activate venv/
 ```
 
 ### Step 2: Install Required Libraries
