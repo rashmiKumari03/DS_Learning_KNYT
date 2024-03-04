@@ -1,5 +1,83 @@
 # Welcome to End to End Data Science Project Setup Guide (Student Performance) 🚀
+-------------------------------------------------------------------------------------------------------------------------------------------
 
+![alt text](Reference_img/SP_gif.gif)
+
+**GitHub Guide: How to Use**
+
+### Step 1: Activate the Environment
+Open the terminal and activate the environment using:
+
+```bash
+source activate your_environment_name
+```
+
+### Step 2: Install Required Libraries
+Install all the required libraries using pip:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3: Model Training
+#### Option 1: Using Terminal
+Run the following command to train the model:
+
+```bash
+python main_train.py
+```
+
+#### Option 2: Using MLflow & DagsHub
+To utilize MLflow and DagsHub for model training and evaluation metrics, follow these steps:
+1. Activate the environment:
+
+```bash
+source activate venv/
+```
+
+2. Set up MLflow tracking:
+
+```bash
+export MLFLOW_TRACKING_URI=https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow
+export MLFLOW_TRACKING_USERNAME=ML_projects
+export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
+```
+
+3. Run the training script:
+
+```bash
+python main_train.py
+```
+![alt text](Reference_img/09.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
+
+### Step 4: Prediction and WebPage Integration
+Run the following command to initiate prediction and integrate with the webpage:
+
+```bash
+python main_app.py
+```
+
+This will process incoming data from the server/webpage and provide predicted outputs on the webpage.
+
+---
+
+**How to Run this Code**
+1. Open your terminal.
+2. Activate the environment using `source activate venv/`.
+3. Install required libraries by running `pip install -r requirements.txt`.
+4. Choose either of the following methods for model training:
+   - Option 1: Train the model directly in the terminal using `python main_train.py`.
+   - Option 2: Utilize MLflow and DagsHub by activating the environment, setting up MLflow tracking, and then running the training script.
+   ![alt text](Reference_img/18.Option_2_mlflow_main_train.png)
+
+               
+5. Run the command `python main_app.py` for prediction and webpage integration.
+
+🚀 Happy coding! 🌟
+
+=====================================================================================================================================================================
+
+# Venturing into Seamless Coding : A Personal Journey Through Modular Approach 🔍
 
 ### A. Git and Github Repository Setup
 
@@ -199,12 +277,11 @@ Also Here we Perform MLFLOW and DAGSHUB: This will do model_registry with loggin
 ![alt text](Reference_img/07.1.best_model.png)
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 Then 
+
 # 5. Perform this MLFLOW & DAGSHUB
 
-# MLFLow Experiment Tracking & Dags
+## MLFLow Experiment Tracking & Dags
 To execute this mlflow tracking....we have these things.
 
 - MLflow Tracking remote:
@@ -291,36 +368,8 @@ on bash ---> venv activated ---> run "python main_app.py"
 Till now we have used app.py for execution of all .py components files....but now ...To make things more strucutued we will make training_pipeline.py.
 In it same code would be there in function form...that function we call in another file "main_train.py"
 
-Therefore:
-Approach will be:
-
-* Step 1: Open the terminal and activate the envirnoment .
-* Step 2: Install all the required libraries using " pip install -r requirements.txt"
--------------------------------------------------------------------------------------------------------------------------
-* Step 3: For Training in terminal :    "python main_train.py"   #This helps us to create preprocessor.pkl and model.pkl
-
-                                                 OR 
-
-* `Step 3: We can directly do this step...`
-
-`MLflow & DagsHub and Model training and Evalution Metrics` : 
-
-          `go to bash terminal --> activate the env. --> pass these mlflow 3 things.`
-          - activate the venv/  using source activate venv/
-          - export MLFLOW_TRACKING_URI=https://dagshub.com/ML_projects/DS_Learning_KNYT.mlflow
-          - export MLFLOW_TRACKING_USERNAME=ML_projects
-          - export MLFLOW_TRACKING_PASSWORD=993564a6c64ecd50ffd6430a84e1e2176368f4d3
-          - now run the python main_train.py
-
-
-![alt text](Reference_img/09.Running_the_mlflow_code_in_terminal_to_get_tracked_by_dagshub_and_mlflow_tracking.png)
-
-* Step 4: For Prediction and WebPage integration :  "python main_app.py"   # This will take the incoming data from server/webpage and then pass it to prediction_pipeline...
-after as a result we will get the predicted output on the webpage.
-* 
-
-
-
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RESULT: 
 
 
 
