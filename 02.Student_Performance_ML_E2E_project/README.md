@@ -84,6 +84,7 @@ This will process incoming data from the server/webpage and provide predicted ou
 🚀 Happy coding! 🌟
 
 -----------------------------------------------------------------------------------------------------------------------------
+![alt text](Reference_img/thinking_gif.gif)
 
 # Venturing into Seamless Coding : A Personal Journey Through Modular Approach 🔍
 
@@ -370,6 +371,7 @@ on bash ---> venv activated ---> run "python main_app.py"
 .we will take the new datapoints from the predict webpage and Running on http://127.0.0.1:8000 and do the prediction.
 
 (coded in : Prediction Pipeline , main_app.py , utiles.py , templates folder--> html files.)
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 # 7. We will see what we will do with  existing app.py and How to create training_pipeline.py.
 
