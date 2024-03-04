@@ -35,7 +35,7 @@ def predict_datapoint():
         )
 
         pred_df = data.get_data_as_DataFrame()
-        print("prediction dataframe:", pred_df)
+        print("prediction dataframe:\n", pred_df)
 
         predict_pipeline = PredictPipeline()
         result = predict_pipeline.predict(pred_df)
@@ -44,4 +44,4 @@ def predict_datapoint():
         return render_template("home.html", result=result[0])
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=8000)
+    app.run(host="0.0.0.0",port=8000,debug=True)
