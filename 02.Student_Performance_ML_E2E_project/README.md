@@ -1,7 +1,7 @@
 # Welcome to End to End Data Science Project Setup Guide (Student Performance) 🚀
 -------------------------------------------------------------------------------------------------------------------------------------------
-
 ![alt text](Reference_img/SP_gif.gif)
+
 
 **GitHub Guide: How to Use**
 
